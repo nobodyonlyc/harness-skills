@@ -1,9 +1,22 @@
 ---
 name: design-api
-description: Phase 2 API design — define endpoints/operations, request/response contracts, status/error model, and versioning between components.
+description: Phase 2 API design — define endpoints/operations, request/response contracts, status/error model, and versioning between components. Use when: defining endpoints/operations, specifying request/response contracts, designing an error/status model, or setting a versioning stance between components.
 ---
 
+## One-Liner
+Pin down the contract before code: every operation's inputs/outputs/auth, the error model, and the
+versioning stance — these become the integration and e2e test oracle in phase ⑦.
+
 Input: `docs/design/architecture.md`, `docs/design/database.md`. Output: `docs/design/api.md`.
+
+## Output template (docs/design/api.md)
+```markdown
+### <METHOD> /path        (auth: <required?>)
+Request:  { field: type, ... }   validation: <rules>
+Response: 200 { ... } | 4xx { error envelope }
+Idempotent: yes/no    Paginated: yes/no
+Versioning: <stance / backward-compat>
+```
 
 ## Produce
 - **Operations** — each endpoint/method: purpose, inputs, outputs, auth requirement.

@@ -1,9 +1,22 @@
 ---
 name: design-ux-flow
-description: Phase 3 UX flow — map screen-to-screen navigation, user journeys, and per-state transitions before UI mockups are finalized.
+description: Phase 3 UX flow — map screen-to-screen navigation, user journeys, and per-state transitions before UI mockups are finalized. Use when: mapping screen-to-screen navigation, defining user journeys per US, specifying per-screen state transitions, or identifying which flows need e2e coverage.
 ---
 
+## One-Liner
+Map the journeys and screen-to-screen transitions before any mockup — the flow defines what each
+screen must show and which user-facing paths require e2e coverage.
+
 Input: requirements + US backlog. Output: `docs/design/ui/flows.md`.
+
+## Output template (docs/design/ui/flows.md)
+```markdown
+## Journey: <US / goal>
+Screens: <A> → <B> → <C>
+Transitions @<screen>: empty → loading → success | error  (trigger: <event>)
+Entry/exit: <deep link / auth redirect / completion>
+e2e candidate: yes/no
+```
 
 ## Produce
 - **User journeys** — the primary path through the app per key User Story.
