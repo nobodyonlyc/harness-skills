@@ -10,6 +10,11 @@ Use **with** a component skill (e.g. `dev-be` for a Node service, `dev-fe` for a
 component skill says *what* to build; this says *how* in JS/TS. Follow
 [../../resources/conventions/typescript-node.md](../../resources/conventions/typescript-node.md).
 
+**Delegate craft depth to the experts.** For deep type-system / async / tooling patterns load the
+vendored [`typescript-pro`](../typescript-pro/SKILL.md) (TS) or [`javascript-pro`](../javascript-pro/SKILL.md)
+(vanilla JS/Node), per [../../resources/expert-skills-map.md](../../resources/expert-skills-map.md).
+This skill keeps the harness wiring; the expert supplies the depth.
+
 ## Setup & tooling
 - TypeScript strict; ESM; the project's existing package manager (npm/pnpm/yarn) and scripts.
 - Lint/format: ESLint + Prettier — must pass before review.

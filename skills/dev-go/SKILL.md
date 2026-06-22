@@ -10,6 +10,11 @@ Use **with** a component skill (e.g. `dev-be` for a service, `dev-cli` for a too
 skill says *what* to build; this says *how* in Go. Follow
 [../../resources/conventions/go.md](../../resources/conventions/go.md).
 
+**Delegate craft depth to the expert.** For concurrency, generics, gRPC, and perf patterns load the
+vendored [`golang-pro`](../golang-pro/SKILL.md), per
+[../../resources/expert-skills-map.md](../../resources/expert-skills-map.md). This skill keeps the
+harness wiring; the expert supplies the depth.
+
 ## Setup & tooling
 - Modules (`go.mod`); `gofmt` + `go vet` clean; `golangci-lint` if the repo uses it.
 - Test: `_test.go`, table-driven; `go test ./...` green before review.

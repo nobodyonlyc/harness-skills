@@ -10,6 +10,11 @@ Use **with** a component skill (e.g. `dev-cli` for a tool, `dev-be` for a servic
 skill says *what* to build; this says *how* in Rust. Follow
 [../../resources/conventions/rust.md](../../resources/conventions/rust.md).
 
+**Delegate craft depth to the expert.** For ownership/lifetimes, trait design, and async (tokio)
+patterns load the vendored [`rust-engineer`](../rust-engineer/SKILL.md), per
+[../../resources/expert-skills-map.md](../../resources/expert-skills-map.md). This skill keeps the
+harness wiring; the expert supplies the depth.
+
 ## Setup & tooling
 - Cargo workspace; `cargo fmt` + `cargo clippy -- -D warnings` clean before review.
 - Test: `#[cfg(test)]` unit modules + `tests/` for integration; `cargo test` green.
