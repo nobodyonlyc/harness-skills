@@ -7,6 +7,11 @@ description: Phase 6 code review — inspect a child-task diff across correctnes
 Find the real defects in *this diff* and record each as a tracked finding — presence of a review is
 not the goal, a resolved finding list is.
 
+**Delegate craft depth to the expert.** For broad-scope analysis (security classes, N+1, smells)
+load the vendored [`code-reviewer`](../code-reviewer/SKILL.md) (see
+[../../resources/expert-skills-map.md](../../resources/expert-skills-map.md)); this skill keeps the
+dimensions, the tracked `## Review` checklist, and the gate.
+
 ## Core Philosophy
 A review that produces prose but no tracked findings is theatre: nothing forces resolution. Record
 findings as checkboxes so the `review-fix-gate` can hold `verify` until each is fixed or consciously

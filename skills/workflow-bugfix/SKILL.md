@@ -51,4 +51,8 @@ run [check-review-loop](../check-review-loop/SKILL.md); then `./harness verify <
 - Step-gate + token-budget as in [workflow-feature](../workflow-feature/SKILL.md). Persona controls
   reporting depth ([../../resources/persona-mode.md](../../resources/persona-mode.md)).
 
-(Methodology adapted from debug-diagnose, theNeoAI, MIT.)
+**Delegate craft depth to the experts.** For stack-trace/log analysis and hypothesis-driven
+isolation, load the vendored [`debugging-wizard`](../debugging-wizard/SKILL.md) and the six-phase
+[`debug-diagnose`](../debug-diagnose/SKILL.md) (see
+[../../resources/expert-skills-map.md](../../resources/expert-skills-map.md)). This workflow keeps
+the feedback-loop-first discipline, the gates, and the regression+verify close-out.

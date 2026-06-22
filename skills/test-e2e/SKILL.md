@@ -10,6 +10,11 @@ on seeded data, not mocks, to confirm it works as experienced, not just as unit-
 **Activation:** required when the task delivers a **user-facing end-to-end flow** (sourced from
 [design-ux-flow](../design-ux-flow/SKILL.md)).
 
+**Delegate craft depth to the experts.** For browser automation, page objects, and flake control,
+load the vendored [`playwright-expert`](../playwright-expert/SKILL.md) /
+[`webapp-testing`](../webapp-testing/SKILL.md) (see
+[../../resources/expert-skills-map.md](../../resources/expert-skills-map.md)).
+
 ## Run
 - Drive the flow through the real UI/API as a user would (e.g. browser automation or full-stack HTTP).
 - Cover the **happy path** + the key failure path (invalid input, auth required, empty state).

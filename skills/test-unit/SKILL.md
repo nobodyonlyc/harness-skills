@@ -7,6 +7,11 @@ description: Phase 7 unit testing via test-driven tracer bullets — write one b
 Drive each unit with a test that describes **behavior through the public interface** — one tracer
 bullet at a time, never write all tests bulk-first.
 
+**Delegate craft depth to the experts.** For test architecture/mocking/coverage load
+[`test-master`](../test-master/SKILL.md); for strict red-green cadence load
+[`tdd-workflow`](../tdd-workflow/SKILL.md) (see
+[../../resources/expert-skills-map.md](../../resources/expert-skills-map.md)).
+
 ## Core Philosophy
 Tests verify **behavior**, not implementation: code can be rewritten and good tests survive.
 **Anti-pattern — horizontal slicing:** writing all tests first, then all implementation, produces

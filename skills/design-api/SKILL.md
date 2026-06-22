@@ -9,6 +9,11 @@ versioning stance — these become the integration and e2e test oracle in phase 
 
 Input: `docs/design/architecture.md`, `docs/design/database.md`. Output: `docs/design/api.md`.
 
+**Delegate craft depth to the expert.** For REST/GraphQL modeling, versioning, pagination, and
+OpenAPI specifics, load the vendored [`api-designer`](../api-designer/SKILL.md) (see
+[../../resources/expert-skills-map.md](../../resources/expert-skills-map.md)). This skill keeps the
+harness wiring (output doc, gates, handoff to tests).
+
 ## Output template (docs/design/api.md)
 ```markdown
 ### <METHOD> /path        (auth: <required?>)

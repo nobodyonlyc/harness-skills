@@ -5,6 +5,12 @@ description: Phase 2 system architecture — define components, boundaries, data
 
 Input: `docs/requirements.md`. Output: `docs/design/architecture.md`.
 
+**Delegate craft depth to the expert.** For component/boundary design, scalability patterns, and ADR
+authoring, load the vendored [`architecture-designer`](../architecture-designer/SKILL.md) (also feeds
+[design-detailed](../design-detailed/SKILL.md)); see
+[../../resources/expert-skills-map.md](../../resources/expert-skills-map.md). This skill keeps the
+trade-off-matrix + ADR gate.
+
 ## One-Liner
 Pick the architecture by comparing options against the requirements in a trade-off matrix, then
 record the decision as an ADR — so the *why* survives, not just the *what*.

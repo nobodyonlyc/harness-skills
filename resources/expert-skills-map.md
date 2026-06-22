@@ -50,6 +50,17 @@ Pick by the project's stack. `dev-fe` consults the **frontend** rows, `dev-be` t
 | dev-be | NestJS (Node) | `nestjs-expert` |
 | dev-be | ASP.NET Core (.NET) | `dotnet-core-expert` |
 
+### Test / design / debug
+| Harness skill | Trigger | Delegate to expert |
+|---|---|---|
+| test-unit / check-test-strategy | test design, cases, coverage | `test-master` |
+| test-e2e | browser/UI end-to-end | `playwright-expert`, `webapp-testing` |
+| test-unit (red-green) | strict TDD cadence | `tdd-workflow` |
+| design-api | endpoint/contract design | `api-designer` |
+| design-architecture / design-detailed | system & component design | `architecture-designer` |
+| check-code-review | review depth | `code-reviewer` |
+| workflow-bugfix | root-cause / debugging | `debugging-wizard`, `debug-diagnose` |
+
 ## Vendored experts (machine-checked by scripts/lint-expert-map.sh)
 Every name below must resolve to `skills/<name>/SKILL.md`. This fenced block is the single source
 the lint parses — keep it in sync with the table above as phases land.
@@ -82,4 +93,13 @@ nestjs-expert
 dotnet-core-expert
 flutter-expert
 frontend-design
+test-master
+playwright-expert
+tdd-workflow
+webapp-testing
+api-designer
+architecture-designer
+code-reviewer
+debugging-wizard
+debug-diagnose
 ```
