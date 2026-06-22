@@ -1,7 +1,10 @@
 ---
 name: dev-js-ts
-description: Phase 5 implementation in JavaScript/TypeScript (Node) — language idioms, tooling, and project layout. Composes with a component skill (dev-be/dev-fe/dev-cli).
+description: Phase 5 implementation in JavaScript/TypeScript (Node) — language idioms, tooling, and project layout. Composes with a component skill (dev-be/dev-fe/dev-cli). Use when: the stack is Node/JS/TS, implementing a component skill in JavaScript/TypeScript, or setting JS/TS tooling and layout.
 ---
+
+## One-Liner
+The JS/TS language layer (idioms, tooling, layout) that composes under a component skill — the component owns *what* to build, this owns *how* in Node.
 
 Use **with** a component skill (e.g. `dev-be` for a Node service, `dev-fe` for a React UI) — the
 component skill says *what* to build; this says *how* in JS/TS. Follow

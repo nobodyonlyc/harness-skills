@@ -1,7 +1,10 @@
 ---
 name: ship-pr-create
-description: Phase 9 pull request — open a PR with a clear summary, the test evidence, and a review checklist; the entry to the team integration gate.
+description: Phase 9 pull request — open a PR with a clear summary, the test evidence, and a review checklist; the entry to the team integration gate. Use when: opening a PR for a finished feature branch, entering the team integration gate, or packaging a change with its test evidence for review.
 ---
+
+## One-Liner
+Open the PR that starts the team integration gate — summary + test evidence + review checklist — so a reviewer can judge it without re-deriving the work.
 
 Input: a feature branch ready for integration.
 

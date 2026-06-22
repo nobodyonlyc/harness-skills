@@ -1,7 +1,10 @@
 ---
 name: core-explore
-description: Read-only exploration — locate code, files, and conventions across the codebase and return conclusions, not file dumps. Fast, single-agent.
+description: Read-only exploration — locate code, files, and conventions across the codebase and return conclusions, not file dumps. Fast, single-agent. Use when: locating where something lives in the codebase, learning a convention before editing, or answering a "where/how is X done" question without changing files.
 ---
+
+## One-Liner
+Read-only reconnaissance that returns conclusions, not file dumps — find where things live and how the codebase does them, then hand the answer back.
 
 Goal: $ARGUMENTS
 

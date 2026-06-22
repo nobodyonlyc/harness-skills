@@ -1,7 +1,10 @@
 ---
 name: core-explain
-description: Explain code, architecture, or a change to the user at the right level of detail for their role (plain for non-technical, precise for developers).
+description: Explain code, architecture, or a change to the user at the right level of detail for their role (plain for non-technical, precise for developers). Use when: explaining how code/architecture/a change works, onboarding someone to a subsystem, or answering "what does this do / why" at the user's level.
 ---
+
+## One-Liner
+Explain at the audience's altitude — plain language for non-technical, precise mechanism for developers — matching depth to the role, not dumping everything.
 
 Subject: $ARGUMENTS
 

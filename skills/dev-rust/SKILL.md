@@ -1,7 +1,10 @@
 ---
 name: dev-rust
-description: Phase 5 implementation in Rust — language idioms, tooling, and project layout. Composes with a component skill (dev-be/dev-cli/dev-batch).
+description: Phase 5 implementation in Rust — language idioms, tooling, and project layout. Composes with a component skill (dev-be/dev-cli/dev-batch). Use when: the stack is Rust, implementing a component skill in Rust, or setting Rust tooling (cargo, clippy) and layout.
 ---
+
+## One-Liner
+The Rust language layer (idioms, tooling, layout) that composes under a component skill — the component owns *what*, this owns *how* in Rust.
 
 Use **with** a component skill (e.g. `dev-cli` for a tool, `dev-be` for a service) — the component
 skill says *what* to build; this says *how* in Rust. Follow

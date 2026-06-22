@@ -1,7 +1,10 @@
 ---
 name: dev-go
-description: Phase 5 implementation in Go — language idioms, tooling, and project layout. Composes with a component skill (dev-be/dev-cli/dev-batch).
+description: Phase 5 implementation in Go — language idioms, tooling, and project layout. Composes with a component skill (dev-be/dev-cli/dev-batch). Use when: the stack is Go, implementing a component skill in Go, or setting Go tooling (modules, go test) and layout.
 ---
+
+## One-Liner
+The Go language layer (idioms, tooling, layout) that composes under a component skill — the component owns *what*, this owns *how* in Go.
 
 Use **with** a component skill (e.g. `dev-be` for a service, `dev-cli` for a tool) — the component
 skill says *what* to build; this says *how* in Go. Follow

@@ -1,7 +1,10 @@
 ---
 name: core-fix
-description: Make a small, scoped fix without the full feature pipeline — typos, one-line bugs, config tweaks — still tested and lightly reviewed.
+description: Make a small, scoped fix without the full feature pipeline — typos, one-line bugs, config tweaks — still tested and lightly reviewed. Use when: a typo/one-line bug/config tweak that doesn't warrant the full feature pipeline, but still needs a test + light review.
 ---
+
+## One-Liner
+The fast lane for trivial fixes — skip the full pipeline but never skip the test + light review; if it grows, promote it to a feature or bugfix.
 
 Fix: $ARGUMENTS
 

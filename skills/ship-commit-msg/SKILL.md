@@ -1,7 +1,10 @@
 ---
 name: ship-commit-msg
-description: Phase 9 commit message — write a Conventional Commit message from the staged diff. Mechanical, fast-tier.
+description: Phase 9 commit message — write a Conventional Commit message from the staged diff. Mechanical, fast-tier. Use when: writing a commit message, summarizing a staged diff, or producing a Conventional Commit line.
 ---
+
+## One-Liner
+Turn the staged diff into one Conventional Commit message — type(scope): summary — describing what changed and why, not how.
 
 Input: the staged diff. Output: a commit message.
 

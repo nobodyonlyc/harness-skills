@@ -1,7 +1,10 @@
 ---
 name: core-file-ops
-description: Mechanical file operations — create, move, rename, or delete files and directories. Fast-tier, low-judgment.
+description: Mechanical file operations — create, move, rename, or delete files and directories. Fast-tier, low-judgment. Use when: creating/moving/renaming/deleting files or directories as a mechanical step, not as part of a larger judgment-heavy change.
 ---
+
+## One-Liner
+Mechanical create/move/rename/delete — low-judgment file plumbing; confirm before deleting or overwriting anything you did not create.
 
 Operation: $ARGUMENTS
 

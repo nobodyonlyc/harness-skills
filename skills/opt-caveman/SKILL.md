@@ -1,7 +1,10 @@
 ---
 name: opt-caveman
-description: Token optimization — activate the vendored caveman skill to compress inter-agent prompts and subagent results, cutting output tokens without weakening any quality gate.
+description: Token optimization — activate the vendored caveman skill to compress inter-agent prompts and subagent results, cutting output tokens without weakening any quality gate. Use when: compressing inter-agent prompts or subagent results, a long-running run is burning tokens, or trimming handoff notes without losing meaning.
 ---
+
+## One-Liner
+Compress the words between agents, never the rigor — cut tokens in prompts/handoffs/results while every quality gate stays fully intact.
 
 Wraps [`../../vendor/caveman`](../../vendor/caveman) (MIT) and applies the policy in
 [../../resources/token-budget.md](../../resources/token-budget.md).

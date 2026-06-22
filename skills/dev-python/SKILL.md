@@ -1,7 +1,10 @@
 ---
 name: dev-python
-description: Phase 5 implementation in Python — language idioms, tooling, and project layout. Composes with a component skill (dev-be/dev-cli/dev-batch).
+description: Phase 5 implementation in Python — language idioms, tooling, and project layout. Composes with a component skill (dev-be/dev-cli/dev-batch). Use when: the stack is Python, implementing a component skill in Python, or setting Python tooling (venv, packaging) and layout.
 ---
+
+## One-Liner
+The Python language layer (idioms, tooling, layout) that composes under a component skill — the component owns *what*, this owns *how* in Python.
 
 Use **with** a component skill (e.g. `dev-be` for a service, `dev-batch` for a job) — the component
 skill says *what* to build; this says *how* in Python. Follow
