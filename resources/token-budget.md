@@ -19,8 +19,23 @@ high. Scope of the rule:
 - **Never** apply to reasoning/thinking — caveman shrinks the mouth, not the brain.
 - **Never** where it would weaken a gate (see Hard rule below): judgment-critical review/test/design
   prose stays full + `strong` tier.
-- Levels `lite|full|ultra` trade compression for readability; `lite` is the safe default for
-  inter-agent prose, `ultra` only for high-volume low-ambiguity data passing.
+### Level selection (which level for which traffic)
+Levels: `lite` = drop filler, keep full sentences · `full` = terse telegraphic · `ultra` = maximum
+compression. (Caveman level `full` is **not** the same as "full prose" = uncompressed.) Pick by what
+the traffic *is*, not by how big it is:
+
+| Inter-agent traffic | Level | Why |
+|---|---|---|
+| Subagent **task instructions** (reviewer/tester/dev/expert prompts) | `lite` | instructions need clarity; only filler goes |
+| Phase **handoff notes** + task-state checkpoints | `full` | routine, low-ambiguity status |
+| **Plan/split/scaffold** instructions (`plan-tasks`, `plan-skeleton`) | `full` | mechanical + structured |
+| **Bulk data dumps**: file/grep/search results (`core-explore`), batch item lists (`dev-batch`), raw log excerpts | `ultra` | high-volume, low-ambiguity |
+| Returned **structured results** (test output, metrics) | `full`→`ultra` | data, not prose |
+| **Judgment artifacts**: review-finding rationale, security analysis, design trade-offs/ADR, requirements, UX/e2e reasoning | **no caveman — full prose** + `strong` | compression risks weakening a gate (Hard rule) |
+| **User-facing output** | **no caveman** unless opted in | persona/tone |
+
+Default when unsure: `lite` for prose, `ultra` only for pure data, **no caveman** for anything a gate
+depends on.
 
 ## 2. Compaction — keep long artifacts out of context
 - Write long outputs (specs, design docs, plans, evidence, logs > ~10 lines) to **files**, not chat.

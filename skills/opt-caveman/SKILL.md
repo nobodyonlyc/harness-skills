@@ -29,6 +29,12 @@ Wraps [`../../vendor/caveman`](../../vendor/caveman) (MIT) and applies the polic
 - `full` — terse telegraphic style; for bulk mechanical handoffs.
 - `ultra` — maximum compression; only for high-volume low-ambiguity data passing.
 
+**Which level for which traffic** is set by the **Level selection** matrix in
+[../../resources/token-budget.md](../../resources/token-budget.md): instructions → `lite`, routine
+handoffs/plans → `full`, bulk data dumps → `ultra`, and judgment-critical content (review/security/
+design/requirements) → **no caveman, full prose**. When unsure: `lite` for prose, `ultra` only for
+pure data, none where a gate depends on it.
+
 ## Hard rule
 If compression would risk a weaker review, test, or design result, **don't** — use full prose and a
 `strong` model tier ([../../resources/agent-tool-mapping.md](../../resources/agent-tool-mapping.md)).

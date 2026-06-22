@@ -35,3 +35,7 @@ while (batch := db.fetch_after(cursor, limit=500)):
 ## Handoff
 To `check-code-review` then `test-integration` + **performance** tests when an NFR on throughput
 exists (per the frozen strategy).
+
+**Caveman level** — item lists and progress/count data passed between agents are pure data →
+`ultra`; routine run summaries → `full` (per the Level selection matrix in
+[../../resources/token-budget.md](../../resources/token-budget.md)).

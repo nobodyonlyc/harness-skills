@@ -19,4 +19,7 @@ Goal: $ARGUMENTS
 - **Read-only.** Make no edits; this skill locates and reports.
 - For a true multi-location sweep, fan out subagents (`spawn-subagents`,
   [../../resources/agent-tool-mapping.md](../../resources/agent-tool-mapping.md)) and synthesize.
+- **Caveman level** — bulk file/grep/search results returned to the orchestrator are high-volume,
+  low-ambiguity data → compress at `ultra` (per the Level selection matrix in
+  [../../resources/token-budget.md](../../resources/token-budget.md)).
 - Hand findings to `core-explain`, `core-fix`, or a workflow as needed.
