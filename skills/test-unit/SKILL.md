@@ -1,19 +1,45 @@
 ---
 name: test-unit
-description: Phase 7 unit testing — write and run fast, isolated tests for a task's logic and edge cases. Always required.
+description: Phase 7 unit testing via test-driven tracer bullets — write one behavior test through the public interface, make it pass, repeat. Always required. Use when: writing new logic, adding a unit-level behavior, the test-strategy selects unit (always), red-green-refactor.
 ---
 
-Scope: a single unit (function/module/component) in isolation. Always part of the test set.
+## One-Liner
+Drive each unit with a test that describes **behavior through the public interface** — one tracer
+bullet at a time, never write all tests bulk-first.
 
-## Write
-- Cover the **acceptance criteria** of the task + edge cases (null/empty, boundaries, error paths).
-- One behavior per test; arrange-act-assert; deterministic (no clock/network/random unless injected).
-- Mock external collaborators; keep tests fast (milliseconds).
-- Follow the test tooling in [../../resources/conventions/](../../resources/conventions/).
+## Core Philosophy
+Tests verify **behavior**, not implementation: code can be rewritten and good tests survive.
+**Anti-pattern — horizontal slicing:** writing all tests first, then all implementation, produces
+tests against *imagined* behavior that fail on contact with reality. Use **vertical slices**: one
+test → minimal implementation → repeat, each cycle using real learning from the last.
+
+## Workflow
+### Phase 1 — Plan
+List the behaviors to cover (acceptance criteria + edge cases: null/empty, boundary, error paths),
+prioritized. Confirm the public interface (signatures/props/endpoint).
+**Gate:** behavior list agreed; no test written yet.
+### Phase 2 — Tracer bullet
+Write **one** test that (a) calls a public interface, (b) asserts observable output, (c) reads like a
+spec ("given X, when Y, then Z"). Run it → confirm it **fails for the right reason** → write the
+minimal code → run → green.
+**Gate:** test green; it would survive a full rewrite of the implementation.
+### Phase 3 — Incremental loop
+Repeat Phase 2 per behavior in priority order. Keep tests deterministic (inject clock/network/random);
+mock external collaborators; fast (ms).
+**Gate:** all selected unit behaviors are green.
+
+## Examples (Bad vs Good)
+```python
+# BAD: implementation-coupled — breaks on any refactor, tests internals
+assert svc._cache._store["k"] == 1
+# GOOD: behavior through the public interface — survives a rewrite
+assert svc.get("k") == 1
+```
 
 ## Run & record
-Run the project's unit command (e.g. `npm test`, `pytest`, `go test ./...`); record the result in
-evidence `## Test`. This command is the task's `unit:` verification, executed by `harness verify`.
+Run the project's unit command (`npm test` / `pytest` / `go test ./...`); record result in evidence
+`## Test`. This command is the task's `unit:` verification, executed by `harness verify`.
+**Gate:** unit green is a prerequisite for the broader test types and verify.
 
-## Gate
-All unit tests green is a prerequisite for the broader test types and `harness verify`.
+(Methodology adapted from tdd-workflow, theNeoAI, MIT. Test types are selected by
+[check-test-strategy](../check-test-strategy/SKILL.md).)
