@@ -16,5 +16,5 @@ Input: the architecture/database/api docs. Output: `docs/design/detailed.md` (or
 - **Non-Technical** — skipped/auto; record only decisions that affect observable behavior.
 
 ## Gate
-Step-gate; write to file. This blueprint feeds `plan-tasks` (F15), which splits it into child-tasks
-and freezes the per-task test-strategy. Patterns reference `dev-design-patterns` where present.
+Step-gate; write to file. This blueprint feeds [plan-tasks](../plan-tasks/SKILL.md), which splits it into child-tasks
+and freezes the per-task test-strategy. Justify any design pattern by the problem it solves.
