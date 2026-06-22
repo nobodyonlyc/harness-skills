@@ -12,11 +12,22 @@ Input: the child-task diff. Output: findings written to `docs/design-docs/<id>/e
 - **Scope** — change stays inside the child-task (WIP=1); flag creep as a separate feature.
 - **Reuse/clarity** — obvious duplication or needless complexity (deep cleanup is `check-refactor`).
 
-## Record (hard gate)
-Write **real findings** to evidence `## Review` — each with file:line and severity. If genuinely
-clean, write `No issues found` **with a one-line justification of what was checked**. The
-`review-gate` hook rejects placeholder/empty/`N/A` review sections, and `quality-gate` blocks
-`harness verify` without a `## Review` section.
+## Record (hard gate) — as a tracked checklist
+Write **real findings** to evidence `## Review` as **checkboxes** so each finding's resolution is
+durable and gate-checkable:
+```
+- [ ] <finding> (file:line, severity)        # open
+- [x] <finding> (file:line) — fixed
+- [x] <finding> — (accepted: <reason>)
+```
+If genuinely clean, write `No issues found` **with a one-line justification of what was checked**.
+Gates: `quality-gate` blocks `harness verify` without a `## Review` section; `review-gate` rejects
+placeholder/empty sections; **`review-fix-gate` blocks verify while any `- [ ]` stays open**.
+
+## Driving the fix loop
+This skill is the **single review pass**. To actually resolve findings, run it inside
+[check-review-loop](../check-review-loop/SKILL.md) — an **independent** reviewer + a capped
+fix → re-review loop until no `- [ ]` remains (the review counterpart of `check-qa`).
 
 ## Persona
 - **Non-Technical** — summarize findings in plain language ("found a case where X could fail"); fix before proceeding.

@@ -49,7 +49,7 @@ decomposes a US).
 
 ## Stage B — per-US execution (repeated, via workflow-feature)
 For each backlog US, run phases ⑤–⑨ through [workflow-feature](../workflow-feature/SKILL.md):
-`harness plan <id>` → `start` → ⑤ code (`dev-*`) → ⑥ review (`check-code-review`, `check-refactor`) →
+`harness plan <id>` → `start` → ⑤ code (`dev-*`) → ⑥ review ([check-review-loop](../check-review-loop/SKILL.md): independent review + fix loop, `check-refactor`) →
 ⑦ test (`check-test-strategy` → `test-*`) → ⑧ fix (`check-qa`) → `harness verify <id>` →
 ⑨ ship (`ship-commit-msg`/`ship-pr-create`; deploy = always-stop). In `solo` you may auto-chain USs
 (Non-Technical default); in `team` each assignee holds one US — see

@@ -16,7 +16,9 @@ Execute a single backlog User Story to `passing`. Reached from `workflow-intake`
 4. **Plan tasks** (`plan-tasks`) — split into `F<id>-T<n>`, and **freeze the test-strategy**
    (`check-test-strategy`) into each task's immutable `--verifications` before start.
 5. **Code** (`dev-*`) — implement per `../../resources/conventions/`.
-6. **Review** (`check-code-review`, `check-refactor`) — record findings to evidence `## Review`.
+6. **Review** — drive [check-review-loop](../check-review-loop/SKILL.md): an **independent** reviewer
+   (`check-code-review` dimensions) records findings as a tracked checklist in evidence `## Review`,
+   then a capped fix → re-review loop runs until no `- [ ]` is open; `check-refactor` for cleanup.
 7. **Test** — run the selected types (`test-unit` … `test-security` as the strategy requires);
    record to evidence `## Test`.
 8. **Verify** — `./harness verify <id>` (gated by quality + review hooks).
