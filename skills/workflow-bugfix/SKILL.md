@@ -1,30 +1,54 @@
 ---
 name: workflow-bugfix
-description: Fix a bug on an existing harness project — reproduce first with a failing test, make the minimal fix, then prove it with regression tests, review, and verify.
+description: Fix a bug on an existing harness project via structured debugging — build a reliable pass/fail signal first, then hypothesize, confirm, and fix minimally. Use when: a reported bug, a hard-to-reproduce failure, a regression, a mysterious/intermittent error, agent-assisted root-cause analysis.
 ---
 
 Bug report: $ARGUMENTS
 
-Reproduce-first, regression-focused. Smaller design footprint than `workflow-feature` but the same
-review/test/verify gates.
+## One-Liner
+Build a fast, deterministic, agent-runnable pass/fail signal first — the bug is 90% fixed once you
+have it. Never theorize before you can reproduce.
 
-## Loop
-1. **Reproduce** — write a **failing test first** that captures the bug (UT or IT per
-   `check-test-strategy`). Do not fix anything until red is reproduced.
-2. **Locate** — use `core-explore` / `core-explain` to find the root cause; record it in the plan.
-3. **Minimal fix** (`dev-*`) — smallest change that turns the failing test green; resist scope creep.
-4. **Regression** (`test-regression`) — run the broader suite for the touched area to prove nothing
-   else broke; this is **mandatory** for bugfix since it edits existing behavior.
-5. **Review** (`check-code-review`) — record findings to evidence `## Review`.
-6. **Verify** — `./harness verify <id>`; the reproduction test + regression are part of the recorded `## Test`.
+## Core Philosophy
+Most debugging fails because the engineer jumps to hypotheses without a reproducible signal, then
+"fixes" symptoms. Build the loop, let the loop drive everything, and only change code once a single
+hypothesis is confirmed. Smaller footprint than `workflow-feature`, same review/test/verify gates.
+
+## The six phases (each ends in a Gate)
+### Phase 1 — Build a feedback loop
+Create the fastest reproducible signal: unit test > integration test > CLI script > REPL > fuzz.
+Must be agent-runnable, deterministic, and emit pass/fail (not "looks wrong").
+**Gate:** a script/test reproducibly demonstrates the failure.
+### Phase 2 — Reproduce exactly
+Confirm the loop shows the **reported** failure, not a nearby one. A different failure = a second bug
+(note it, don't chase it).
+**Gate:** loop output matches the report word-for-word.
+### Phase 3 — Hypothesize (before touching code)
+Generate **3–5 ranked, falsifiable, independent** hypotheses.
+```
+H1 (most likely): <cause> → predicts <observable> → test by <action>
+H2: …
+```
+**Gate:** each hypothesis has a concrete, testable prediction.
+### Phase 4 — Confirm one
+Bisect / instrument / add logging to confirm or kill hypotheses cheaply (use `core-explore` to
+locate). Do not fix yet.
+**Gate:** exactly one hypothesis is confirmed by evidence from the loop.
+### Phase 5 — Minimal fix
+Smallest change that turns the loop green. Resist scope creep; a larger design problem becomes a
+**separate feature** (WIP=1).
+**Gate:** the Phase-1 loop is now green.
+### Phase 6 — Regression + verify
+`test-regression` is **mandatory** (a bug edits existing behavior) plus the loop's reproduction test;
+run [check-review-loop](../check-review-loop/SKILL.md); then `./harness verify <id>`.
+**Gate:** reproduction test + regression green, review findings resolved, evidence recorded.
 
 ## Rules
 - **Failing test before fix** — a fix without a reproducing test is not accepted.
-- **Regression is required** — bugfix touches existing behavior, so `check-test-strategy` always
-  includes regression here (see [../../resources/persona-mode.md](../../resources/persona-mode.md)
-  for how results are reported per role).
-- **Minimal footprint** — if the fix reveals a larger design problem, surface it as a separate
-  feature (WIP=1), do not expand this one.
-- **Step-gate + token budget** apply as in [workflow-feature](../workflow-feature/SKILL.md).
-- **Task-state** — keep `.harness/tasks/<id>.md` current: tick the reproduce → fix → regression →
-  verify boxes as each completes ([../../resources/task-state.md](../../resources/task-state.md)).
+- **Regression required** — `check-test-strategy` always includes regression here.
+- **Task-state** — tick the reproduce→fix→regression→verify boxes in `.harness/tasks/<id>.md`
+  ([../../resources/task-state.md](../../resources/task-state.md)).
+- Step-gate + token-budget as in [workflow-feature](../workflow-feature/SKILL.md). Persona controls
+  reporting depth ([../../resources/persona-mode.md](../../resources/persona-mode.md)).
+
+(Methodology adapted from debug-diagnose, theNeoAI, MIT.)
