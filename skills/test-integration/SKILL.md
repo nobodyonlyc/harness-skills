@@ -1,10 +1,21 @@
 ---
 name: test-integration
-description: Phase 7 integration testing — verify that components work together across real boundaries (DB, API, services) for tasks that cross components or call external dependencies.
+description: Phase 7 integration testing — verify that components work together across real boundaries (DB, API, services) for tasks that cross components or call external dependencies. Use when: a task crosses component boundaries, calls a DB/API/external service, exercising a real API contract + schema, or the test-strategy selected integration.
 ---
+
+## One-Liner
+Exercise the real boundaries — API contract, schema, external deps — against ephemeral/test
+instances, including the failure modes, so "the pieces fit" is proven, not assumed.
 
 Scope: multiple components together, or a component against a real(istic) external dependency.
 Required when the task crosses a boundary (per [check-test-strategy](../check-test-strategy/SKILL.md)).
+
+## Test record template
+```
+## Test
+- integration: PASS — api contract (docs/design/api.md) + schema (test DB)
+  failure modes: timeout / partial-failure / bad-input across boundary covered
+```
 
 ## Write
 - Exercise the **API contract** (`docs/design/api.md`) and **schema** (`docs/design/database.md`) for real.
