@@ -41,9 +41,23 @@ assert svc._cache._store["k"] == 1
 assert svc.get("k") == 1
 ```
 
-## Run & record
-Run the project's unit command (`npm test` / `pytest` / `go test ./...`); record result in evidence
-`## Test`. This command is the task's `unit:` verification, executed by `harness verify`.
+## Coverage
+Cover every acceptance criterion plus the edge cases listed in Phase 1 (null/empty, boundary, error
+paths). Branches with logic must be exercised — an untested error path is a coverage hole. Where the
+project sets a coverage threshold, meet it; never lower the threshold to go green.
+
+## Run & record (REQUIRED format — the `test-type-coverage-gate` enforces a green verdict)
+Run the project's unit command (`npm test` / `pytest` / `go test ./...`); record the verdict in
+evidence `## Test` as a verdict line with a count:
+
+```
+## Test
+- unit: PASS — 42 tests, 0 failing (covers happy + null/empty/boundary/error paths)
+```
+
+A `unit:` line is mandatory (unit is always selected). The gate blocks `harness verify` if the
+`unit:` verdict is `FAIL` / `PENDING` / `TODO` / `SKIP` rather than `PASS`. This command is the
+task's `unit:` verification, executed by `harness verify`.
 **Gate:** unit green is a prerequisite for the broader test types and verify.
 
 (Methodology adapted from tdd-workflow, theNeoAI, MIT. Test types are selected by

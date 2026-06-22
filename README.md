@@ -14,7 +14,7 @@ harness-skills/
 ├── vendor/caveman/        # nested submodule — token-optimization skill (MIT, upstream)
 ├── skills/                # workflow-* / plan-* / design-* / dev-* / check-* / test-* / ship-* / core-* / opt-*
 ├── resources/             # shared conventions (agent-tool-mapping, autonomy-mode, persona-mode, token-budget, step-gate)
-├── hooks/                 # gate scripts (phase/quality/review/persona/step-gate/caveman-budget …)
+├── hooks/                 # gate scripts (phase/quality/review/persona/step-gate/caveman-budget, test-type/it-testcase/e2e-coverage …)
 └── config-templates/      # per-agent wiring snippets merged by install.sh
 ```
 

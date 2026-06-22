@@ -34,6 +34,14 @@ the rationale ("IT included because the task calls the payments API") in the tas
 **Gate:** the selected test types are written as `--verifications` (with rationale) *before* the
 task is started — the set is immutable afterward.
 
+## Enforced at verify
+At `harness verify`, evidence `## Test` is checked by hooks, so record the prescribed formats:
+- every recorded `<type>:` verdict must read **PASS** (`test-type-coverage-gate`);
+- if **integration** is selected, an `### Integration Test Cases` table with concrete Steps +
+  Expected Output is required (`it-testcase-gate`, per [test-integration](../test-integration/SKILL.md));
+- if **e2e** is selected, an `### E2E Coverage Matrix` proving every flow `COVERED` is required
+  (`e2e-coverage-gate`, per [test-e2e](../test-e2e/SKILL.md)).
+
 ## Persona
 - **Non-Technical** — do not surface the matrix; just run the selected tests and report pass/fail plainly.
 - **Developer** — show the selected set + the reason per type for review.

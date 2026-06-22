@@ -16,13 +16,17 @@ This is **mandatory for every bugfix** ([workflow-bugfix](../workflow-bugfix/SKI
 - For bugfixes, ensure the **reproduction test** is part of the suite and now passes.
 - Compare against the pre-change baseline; any newly-failing test is a regression to fix before verify.
 
-## Record
+## Record (REQUIRED format — the `test-type-coverage-gate` enforces a green verdict)
 Record pass/fail (and any fixed regressions) in evidence `## Test`; this is the `regression:`
-verification. Do not narrow the suite to make it pass — that hides regressions.
+verification. The verdict line must name the **baseline ref** (commit/tag the suite was compared
+against) and the affected module — that is what makes "no new failures" auditable. Do not narrow the
+suite to make it pass — that hides regressions.
 ```
 ## Test
-- regression: PASS — full suite for <module> (baseline: <ref>)
+- regression: PASS — full suite for <module> (baseline: <commit/tag>, 0 new failures)
   reproduction test for <bug> included and now green
 ```
+The gate blocks `harness verify` if a `regression:` line is present but its verdict is `FAIL` /
+`PENDING` / `TODO`.
 
 **Gate:** the affected module's full suite is green against baseline (no narrowing) before `harness verify`.

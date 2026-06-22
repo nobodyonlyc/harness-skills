@@ -15,6 +15,9 @@
           { "type": "command", "command": "bash \"$CLAUDE_PROJECT_DIR/.harness/skills-src/hooks/persona-gate.sh\"" },
           { "type": "command", "command": "bash \"$CLAUDE_PROJECT_DIR/.harness/skills-src/hooks/phase-guard.sh\"" },
           { "type": "command", "command": "bash \"$CLAUDE_PROJECT_DIR/.harness/skills-src/hooks/quality-gate.sh\"" },
+          { "type": "command", "command": "bash \"$CLAUDE_PROJECT_DIR/.harness/skills-src/hooks/test-type-coverage-gate.sh\"" },
+          { "type": "command", "command": "bash \"$CLAUDE_PROJECT_DIR/.harness/skills-src/hooks/it-testcase-gate.sh\"" },
+          { "type": "command", "command": "bash \"$CLAUDE_PROJECT_DIR/.harness/skills-src/hooks/e2e-coverage-gate.sh\"" },
           { "type": "command", "command": "bash \"$CLAUDE_PROJECT_DIR/.harness/skills-src/hooks/review-gate.sh\"" },
           { "type": "command", "command": "bash \"$CLAUDE_PROJECT_DIR/.harness/skills-src/hooks/review-fix-gate.sh\"" },
           { "type": "command", "command": "bash \"$CLAUDE_PROJECT_DIR/.harness/skills-src/hooks/task-state-guard.sh\"" }
