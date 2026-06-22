@@ -1,0 +1,16 @@
+{
+  "_comment": "Antigravity hook mapping. Wire these into the Antigravity hooks config. Same canonical scripts as Claude Code; Antigravity events map to harness lifecycle points.",
+  "preToolCall": [
+    { "when": "command matches 'harness start'", "run": ".harness/skills-src/hooks/persona-gate.sh" },
+    { "when": "command matches 'harness start'", "run": ".harness/skills-src/hooks/phase-guard.sh" },
+    { "when": "command matches 'harness verify'", "run": ".harness/skills-src/hooks/quality-gate.sh" },
+    { "when": "command matches 'harness verify'", "run": ".harness/skills-src/hooks/review-gate.sh" },
+    { "when": "command matches 'git push'", "run": ".harness/skills-src/hooks/git-guard.sh" }
+  ],
+  "sessionEnd": [
+    { "run": ".harness/skills-src/hooks/context-budget-guard.sh" },
+    { "run": ".harness/skills-src/hooks/caveman-budget.sh" },
+    { "run": ".harness/skills-src/hooks/step-gate.sh" },
+    { "run": ".harness/skills-src/hooks/session-guard.sh" }
+  ]
+}
