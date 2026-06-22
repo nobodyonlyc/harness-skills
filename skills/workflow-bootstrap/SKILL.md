@@ -1,12 +1,22 @@
 ---
 name: workflow-bootstrap
-description: Create a new project from a prompt — drive a greenfield idea through the full 9-phase lifecycle (BA, design, UI, plan, code, review, test, fixbug, deploy), step-gated and persona-aware.
+description: Create a new project from a prompt — drive a greenfield idea through the full 9-phase lifecycle (BA, design, UI, plan, code, review, test, fixbug, deploy), step-gated and persona-aware. Use when: starting a greenfield project, an empty repo and the user asked to build something, scaffolding a new app/service from a prompt, or workflow-intake routed case 1.
 ---
 
 Greenfield request: $ARGUMENTS
 
+## One-Liner
+Setup runs once and per-US execution repeats: model project setup as F00 child-tasks (Stage A,
+once) and every User Story as a workflow-feature run (Stage B, repeated), so any interrupt is
+resumable from the active feature — never from chat.
+
 Turn a prompt into a working, verified project. Reached from `workflow-intake` case 1, or directly
 when the repo is empty and the user asked to build something.
+
+```text
+Stage A (ONCE):  F00-T1 BA → F00-T2 design → F00-T3 UI → F00-T4 plan+skeleton → close F00
+Stage B (LOOP):  for each backlog US → workflow-feature (code→review→test→verify→ship)
+```
 
 ## Pre-flight — seed the setup as a parent + child-tasks
 - Ensure persona/autonomy/collab are set (else run [workflow-intake](../workflow-intake/SKILL.md) Phase 0.5–0.7).
@@ -24,6 +34,9 @@ when the repo is empty and the user asked to build something.
   ./harness add F00-T4 "Plan tasks + skeleton"           --priority 4 --area task --behavior "parent: F00" --verifications "unit:bash ./init.sh"
   ```
   Do **not** start `F00` yet — starting the parent would block the children under WIP=1.
+
+**Gate:** persona/autonomy/collab are set, a session is active, and `F00` + `F00-T1…T4` exist
+(parent still not-started).
 
 ## Stage A — project setup (F00 child-tasks, runs ONCE)
 Run the children **one at a time** (WIP=1), each as a full mini-loop —
@@ -47,6 +60,9 @@ decomposes a US).
 → write `docs/design-docs/F00/evidence.md` (summary + links to the child evidence) → `./harness verify F00`
 → `passing`. Only then start Stage B (this keeps **WIP=1**: the parent is started last, after its children).
 
+**Gate:** `F00` is `passing` (requirements + design + UI + seeded US backlog + green skeleton all
+exist and verified), so Stage B has a working frame to build on.
+
 ## Stage B — per-US execution (repeated, via workflow-feature)
 For each backlog US, run phases ⑤–⑨ through [workflow-feature](../workflow-feature/SKILL.md):
 `harness plan <id>` → `start` → ⑤ code (`dev-*`) → ⑥ review ([check-review-loop](../check-review-loop/SKILL.md): independent review + fix loop, `check-refactor`) →
@@ -54,6 +70,9 @@ For each backlog US, run phases ⑤–⑨ through [workflow-feature](../workflow
 ⑨ ship (`ship-commit-msg`/`ship-pr-create`; deploy = always-stop). In `solo` you may auto-chain USs
 (Non-Technical default); in `team` each assignee holds one US — see
 [workflow-team](../workflow-team/SKILL.md).
+
+**Gate:** every targeted backlog US is `passing` (review + required tests in its evidence), or the
+remaining ones are explicitly deferred with the user.
 
 ## Resumability (why the two stages matter)
 After any interrupt, `./harness resume` reports the active feature + its task-state + next step:
