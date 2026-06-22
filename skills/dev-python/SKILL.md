@@ -10,6 +10,11 @@ Use **with** a component skill (e.g. `dev-be` for a service, `dev-batch` for a j
 skill says *what* to build; this says *how* in Python. Follow
 [../../resources/conventions/python.md](../../resources/conventions/python.md).
 
+**Delegate craft depth to the expert.** For real Python idioms, type-system, async, packaging, and
+test patterns, load and follow the vendored [`python-pro`](../python-pro/SKILL.md) expert (see
+[../../resources/expert-skills-map.md](../../resources/expert-skills-map.md)). This skill keeps
+owning the harness wiring (persona, conventions, handoff, gates); `python-pro` supplies the depth.
+
 ## Setup & tooling
 - Virtualenv / the project's manager (uv/poetry/pip); pin dependencies.
 - Type hints on public functions; `mypy`/`pyright` clean.
