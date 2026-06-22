@@ -1,7 +1,11 @@
 ---
 name: plan-us-backlog
-description: Phase 1 backlog generation — turn a requirements doc into prioritized User Stories with acceptance criteria and seed the harness backlog.
+description: Phase 1 backlog generation — turn a requirements doc into prioritized User Stories with acceptance criteria and seed the harness backlog. Use when: turning requirements into a prioritized US backlog, writing User Stories with acceptance criteria, seeding the harness backlog, or after plan-ba-analysis produces requirements.
 ---
+
+## One-Liner
+Convert requirements into **vertical** User Stories with testable acceptance criteria and seed them
+into the harness backlog — making the backlog, not chat, the source of truth for what to build.
 
 Input: `docs/requirements.md` (from [plan-ba-analysis](../plan-ba-analysis/SKILL.md)).
 

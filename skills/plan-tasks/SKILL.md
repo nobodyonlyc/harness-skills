@@ -1,7 +1,12 @@
 ---
 name: plan-tasks
-description: Phase 4 task planning — split a User Story into vertical child-tasks and freeze the per-task test-strategy into the harness verifications before start (they are immutable afterwards).
+description: Phase 4 task planning — split a User Story into vertical child-tasks and freeze the per-task test-strategy into the harness verifications before start (they are immutable afterwards). Use when: splitting a US into child-tasks, decomposing bootstrap Stage A, freezing per-task test-strategy before start, or scaffolding task plans for the dev phase.
 ---
+
+## One-Liner
+Split the US into thin vertical child-tasks and **freeze each task's test-strategy as immutable
+verifications before start** — because the harness locks them at `start`, the strategy must be
+right now, not later.
 
 Input: an approved US + its design docs. Output: child-tasks in the backlog + a filled `plan.md`.
 
