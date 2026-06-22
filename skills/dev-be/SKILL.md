@@ -9,6 +9,13 @@ API contract and schema exactly, structured errors, no secrets — and stop at t
 
 Input: a child-task `plan.md` + the design docs (architecture/database/api). Scope: this task only (WIP=1).
 
+**Delegate framework craft to the expert.** Match the project's backend stack to its expert via
+[../../resources/expert-skills-map.md](../../resources/expert-skills-map.md) (FastAPI/Django →
+`fastapi-expert`/`django-expert`, Spring Boot → `spring-boot-engineer`, NestJS → `nestjs-expert`,
+Rails → `rails-expert`, Laravel → `laravel-specialist`, ASP.NET → `dotnet-core-expert`, Next.js
+API → `nextjs-developer`) and follow it for framework idioms. This skill keeps owning the contract,
+schema, error model, and gates.
+
 ## Implement
 - Build the **thinnest slice** that satisfies the task's behavior and acceptance criteria.
 - Follow the API contract (`docs/design/api.md`) and schema (`docs/design/database.md`) exactly.

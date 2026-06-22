@@ -9,6 +9,12 @@ components, no business logic in views — wired to the real API contract.
 
 Input: the child-task `plan.md`, approved mockups (`docs/design/ui/`), and `flows.md`.
 
+**Delegate framework craft to the expert.** Match the project's frontend stack to its expert via
+[../../resources/expert-skills-map.md](../../resources/expert-skills-map.md) (React → `react-expert`,
+Vue → `vue-expert`, Angular → `angular-architect`, Next.js → `nextjs-developer`, React Native /
+Flutter for mobile, `frontend-design` for visual polish) and follow it for framework idioms. This
+skill keeps owning states-coverage, the contract wiring, and the gates.
+
 ## Implement
 - Build the screens/components per the **approved mockup** and **UX flow**; cover all states
   (empty/loading/error/populated).
