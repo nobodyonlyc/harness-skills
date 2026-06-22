@@ -1,0 +1,59 @@
+---
+name: workflow-intake
+description: Single entry point — classify any incoming prompt into one of 4 cases, set persona/autonomy/collab, then dispatch to the matching harness workflow.
+---
+
+Incoming request: $ARGUMENTS
+
+Classify the prompt, confirm with the user, set the run's persona/autonomy/collab, then dispatch.
+Every gate uses the **ask-user** capability ([../../resources/agent-tool-mapping.md](../../resources/agent-tool-mapping.md)).
+
+## Phase -1 — Read current state (always first)
+```bash
+./harness status      # backlog, WIP, blocked
+./harness resume      # computed next step (when a session was in progress)
+```
+**Empty-request guard:** if the prompt is not actionable (`.`, `ok`, `hi`, `continue`, blank, a
+greeting) — do NOT classify or dispatch. Report the state above and ask what the user wants. Never
+auto-start bootstrap just because the repo is empty.
+
+## Phase 0 — Classify & confirm
+Decide which case, then **confirm with the user** (click-select) before dispatching. Re-classify on correction.
+
+| Case | Signal | Dispatch |
+|---|---|---|
+| **1. New project** | empty/greenfield repo; "build me a …" | `workflow-bootstrap` |
+| **2. Execute a US** | a backlog US id; "do F12" | analyse US → split child-tasks `F<id>-T<n>` → `workflow-feature` / `workflow-bugfix` |
+| **3. Add feature** | existing harness repo + new capability | read source (`core-explain`) → BA delta → add US → `workflow-feature` |
+| **4. Legacy onboard** | "add harness to a non-harness project" | survey → docs → safe `harness init` → seed backlog |
+
+## Phase 0.5 — Persona & autonomy (persist to context.json)
+Per [../../resources/persona-mode.md](../../resources/persona-mode.md) and
+[../../resources/autonomy-mode.md](../../resources/autonomy-mode.md):
+```bash
+./harness config set user_role Developer        # or Non-Technical
+./harness config set auto_advance false          # true for Non-Technical
+```
+- **Developer** → gated, exhaustive questioning, trade-offs surfaced.
+- **Non-Technical** → auto-advance between USs, requirement-level questions in plain language,
+  technical defaults chosen + logged.
+- **Autonomy** defaults to `gated`; switch to `auto` only if the user explicitly asks for an
+  unattended run. Record the mode in the task-state `Mode:` field.
+
+## Phase 0.7 — Collaboration mode
+Record `solo` (default, global WIP=1) or `team` (per-assignee claim + branch + PR gate, see
+`workflow-team`) in the task-state `Collab:` field. Detect `team` when the user mentions multiple
+people/agents or `features.json` already has an `assignee`/`branch`; when ambiguous, ask-user.
+
+## Phase 0.8 — Start session
+```bash
+./harness session start --goal "<intent>"
+```
+
+## Cross-cutting rules (every route)
+- **Step-gate** — after each phase, confirm before advancing per
+  [../../resources/step-gate.md](../../resources/step-gate.md); in `auto`, log the decision instead.
+- **Full gates** — every executed US runs review + the required test types + verify.
+- **Token budget** — compress inter-agent prompts (caveman), write long artifacts to files
+  ([../../resources/token-budget.md](../../resources/token-budget.md)).
+- **Tracking** — record each step as a harness task; bookend with `session start/stop`.
