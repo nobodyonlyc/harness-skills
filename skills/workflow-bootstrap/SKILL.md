@@ -8,34 +8,44 @@ Greenfield request: $ARGUMENTS
 Turn a prompt into a working, verified project. Reached from `workflow-intake` case 1, or directly
 when the repo is empty and the user asked to build something.
 
-## Pre-flight — make the setup itself resumable
+## Pre-flight — seed the setup as a parent + child-tasks
 - Ensure persona/autonomy/collab are set (else run [workflow-intake](../workflow-intake/SKILL.md) Phase 0.5–0.7).
 - `./harness init` if `.harness/` is not yet seeded; `./harness session start --goal "bootstrap <name>"`.
-- **Create + start a bootstrap tracking feature so Stage A survives an interrupt.** Without this, BA/design/UI
-  produce only file artifacts and `harness resume` has no in-progress feature to continue from:
+- **Seed a bootstrap parent `F00` and one child-task per Stage-A phase**, so each setup phase is
+  individually planned, reviewed, and verified — and any interrupt is resumable from the active child
+  ([../../resources/task-state.md](../../resources/task-state.md), child-task convention):
   ```bash
-  ./harness add F00 "Project bootstrap (BA → design → UI → backlog)" --priority 0 --area infra \
+  ./harness add F00 "Project bootstrap (BA → design → UI → plan)" --priority 0 --area infra \
     --behavior "requirements.md + design docs + UI + seeded US backlog + green skeleton exist" \
     --verifications "unit:test -f docs/requirements.md && test -d docs/design && bash ./init.sh"
-  ./harness start F00      # creates .harness/tasks/F00.md
+  ./harness add F00-T1 "BA: requirements + US backlog"  --priority 1 --area task --behavior "parent: F00" --verifications "unit:test -f docs/requirements.md"
+  ./harness add F00-T2 "System design"                  --priority 2 --area task --behavior "parent: F00" --verifications "unit:test -d docs/design"
+  ./harness add F00-T3 "UI design"                       --priority 3 --area task --behavior "parent: F00" --verifications "unit:test -d docs/design/ui"
+  ./harness add F00-T4 "Plan tasks + skeleton"           --priority 4 --area task --behavior "parent: F00" --verifications "unit:bash ./init.sh"
   ```
-  Expand `.harness/tasks/F00.md` to the full template ([../../resources/task-state.md](../../resources/task-state.md))
-  with one box per Stage-A phase; tick + commit at every phase boundary.
+  Do **not** start `F00` yet — starting the parent would block the children under WIP=1.
 
-## Stage A — project setup (tracked under F00, runs ONCE)
-Drive these in order. Each delegates to its leaf skill, **writes its artifact to a file**, **ticks
-its F00 task-state box + commits**, then **step-gates** ([../../resources/step-gate.md](../../resources/step-gate.md)).
-Persona ([../../resources/persona-mode.md](../../resources/persona-mode.md)) sets depth/language.
+## Stage A — project setup (F00 child-tasks, runs ONCE)
+Run the children **one at a time** (WIP=1), each as a full mini-loop —
+`harness plan F00-Tn` → `start` → produce artifact → `check-code-review` → `harness verify F00-Tn` —
+with a **step-gate** ([../../resources/step-gate.md](../../resources/step-gate.md)) between them and the
+task-state file updated per child. Persona ([../../resources/persona-mode.md](../../resources/persona-mode.md))
+sets depth/language.
 
-| Phase | Skill | Output artifact | F00 box |
-|---|---|---|---|
-| ① Business analysis | `plan-ba-analysis` → `plan-us-backlog` | `docs/requirements.md` + seeded US backlog (`harness add F01…`) | BA |
-| ② System design | `design-architecture`, `design-database`, `design-api`, `design-detailed` | `docs/design/*` | design |
-| ③ UI design | `design-ui`, `design-ux-flow` | `docs/design/ui/*` | UI |
-| ④ Plan tasks | `plan-tasks`, `plan-skeleton` | child-tasks + **frozen test-strategy** + green skeleton | backlog + skeleton |
+| Child-task | Skill | Output artifact |
+|---|---|---|
+| **F00-T1** ① Business analysis | `plan-ba-analysis` → `plan-us-backlog` | `docs/requirements.md` + seeded US backlog (`harness add F01…`) |
+| **F00-T2** ② System design | `design-architecture`, `design-database`, `design-api`, `design-detailed` | `docs/design/*` |
+| **F00-T3** ③ UI design | `design-ui`, `design-ux-flow` | `docs/design/ui/*` |
+| **F00-T4** ④ Plan tasks | `plan-tasks`, `plan-skeleton` | child-tasks for the US + **frozen test-strategy** + green skeleton |
 
-**Close Stage A:** when ①–④ are done, `./harness verify F00` → `passing`. Only then start Stage B
-(this keeps **WIP=1**: F00 passes before any US starts).
+Splitting Stage A into child-tasks gives **design and UI their own `## Review` evidence** and finer
+resume granularity — see [plan-tasks](../plan-tasks/SKILL.md) (it decomposes Stage A the same way it
+decomposes a US).
+
+**Close Stage A:** once **F00-T1…T4 are all `passing`** (nothing in_progress), `./harness start F00`
+→ write `docs/design-docs/F00/evidence.md` (summary + links to the child evidence) → `./harness verify F00`
+→ `passing`. Only then start Stage B (this keeps **WIP=1**: the parent is started last, after its children).
 
 ## Stage B — per-US execution (repeated, via workflow-feature)
 For each backlog US, run phases ⑤–⑨ through [workflow-feature](../workflow-feature/SKILL.md):
@@ -47,7 +57,8 @@ For each backlog US, run phases ⑤–⑨ through [workflow-feature](../workflow
 
 ## Resumability (why the two stages matter)
 After any interrupt, `./harness resume` reports the active feature + its task-state + next step:
-- mid-Stage-A → **F00** is `in_progress`, its task-state says which phase finished and which is next.
+- mid-Stage-A → the active **F00-Tn** child is `in_progress`, its task-state says what is next (the
+  parent `F00` stays not-started until its children pass).
 - mid-Stage-B → the current **US** is `in_progress` with its own task-state.
 No bootstrap progress lives only in chat — it is always recoverable from `features.json` + `.harness/tasks/`.
 

@@ -9,6 +9,12 @@ Input: an approved US + its design docs. Output: child-tasks in the backlog + a 
 Break the US into **vertical child-tasks** `F<id>-T<n>` — each a thin slice that can be coded,
 reviewed, tested, and verified on its own. Avoid layer-by-layer tasks (they defeat per-task verify).
 
+> The **same child-task mechanism** is used for **Stage A setup** in
+> [workflow-bootstrap](../workflow-bootstrap/SKILL.md): the bootstrap parent `F00` is decomposed into
+> `F00-T1` BA, `F00-T2` design, `F00-T3` UI, `F00-T4` plan+skeleton, so each setup phase gets its own
+> plan/review/verify. Setup-phase children are doc/design deliverables, so their verifications are
+> artifact-existence checks rather than the test matrix below.
+
 ## Freeze the test-strategy (the critical step)
 For **each** child-task, run [check-test-strategy](../check-test-strategy/SKILL.md) to decide the
 **required test types** from the task's characteristics:
