@@ -1,22 +1,47 @@
 ---
 name: design-architecture
-description: Phase 2 system architecture — define components, boundaries, data flow, and the technology stack; surface trade-offs to developers, pick logged defaults for non-technical users.
+description: Phase 2 system architecture — define components, boundaries, data flow, and stack, recording the choice as an ADR with a trade-off matrix. Use when: designing a new system, choosing a stack/framework, defining component boundaries, recording an architecture decision.
 ---
 
 Input: `docs/requirements.md`. Output: `docs/design/architecture.md`.
 
-## Decide
-- **Components** and their responsibilities; the boundaries between them.
-- **Data flow** between components (a simple diagram or bullet flow).
-- **Stack** — language(s), framework(s), datastore, runtime; justify against the requirements/NFRs.
-- **Cross-cutting** — auth, logging, error handling, config.
+## One-Liner
+Pick the architecture by comparing options against the requirements in a trade-off matrix, then
+record the decision as an ADR — so the *why* survives, not just the *what*.
 
-## Persona ([../../resources/persona-mode.md](../../resources/persona-mode.md))
-- **Developer** — present 1–2 viable options with trade-offs (cost, complexity, fit) and get approval.
-- **Non-Technical** — choose a conventional default stack, state it in plain language, and **log**
-  the rationale in the doc; do not ask the user to choose a framework.
+## Core Philosophy
+An unrecorded architecture decision gets re-litigated every time someone new reads the code. Compare
+real options against the actual NFRs; don't default to the trendiest stack. Persona sets how much is
+surfaced ([../../resources/persona-mode.md](../../resources/persona-mode.md)).
 
-## Gate
-Step-gate before handing to `design-database` / `design-api`
-([../../resources/step-gate.md](../../resources/step-gate.md)). Write the doc to a file; pass the
-path forward (token-budget). The chosen stack also informs `../../resources/conventions/`.
+## Workflow
+### Phase 1 — Components & flow
+Define components + responsibilities, the boundaries between them, and the data flow.
+**Gate:** every requirement maps to a component that owns it.
+### Phase 2 — Choose the stack (trade-off matrix)
+List 1–2 viable options; score against the requirements/NFRs.
+**Gate (Developer):** user approved the choice. **Non-Technical:** a conventional default is chosen
+and logged (not asked).
+### Phase 3 — Record the ADR
+Write the decision + rationale + rejected alternatives to `docs/design/architecture.md`.
+**Gate:** the ADR names what was chosen, why, and what was rejected.
+
+## Output contract
+```markdown
+## Trade-off matrix
+| Option | Fit to NFRs | Complexity | Cost | Team familiarity | Verdict |
+|---|---|---|---|---|---|
+| A: <stack> | … | … | … | … | chosen |
+| B: <stack> | … | … | … | … | rejected: <reason> |
+
+## ADR-001: <decision title>
+- Status: accepted
+- Context: <forces from requirements/NFRs>
+- Decision: <what we chose>
+- Consequences: <trade-offs accepted, follow-ups>
+- Rejected: <option B> because <reason>
+```
+
+## Handoff
+Feeds `design-database` / `design-api` / `design-detailed`; the chosen stack selects the
+`../../resources/conventions/<lang>.md` guide.
