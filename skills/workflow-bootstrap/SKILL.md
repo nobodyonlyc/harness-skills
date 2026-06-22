@@ -47,3 +47,6 @@ each assignee holds one US — see [workflow-team](../workflow-team/SKILL.md).
 - **Token budget** — compress inter-agent prompts, write artifacts to files
   ([../../resources/token-budget.md](../../resources/token-budget.md)).
 - **Verify before done** — no US is `passing` without review + required tests recorded in evidence.
+- **Task-state** — after `./harness start <id>` expand `.harness/tasks/<id>.md` to the full template;
+  tick `[ ]→[/]→[x]` and update Next step at each phase boundary
+  ([../../resources/task-state.md](../../resources/task-state.md)).

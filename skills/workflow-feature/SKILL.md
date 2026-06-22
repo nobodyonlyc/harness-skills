@@ -31,3 +31,5 @@ Execute a single backlog User Story to `passing`. Reached from `workflow-intake`
 - **Token budget** — compress inter-agent prompts, artifacts to files
   ([../../resources/token-budget.md](../../resources/token-budget.md)).
 - **No silent completion** — `passing` requires review + required tests in `evidence.md`.
+- **Task-state** — expand `.harness/tasks/<id>.md` after start; tick boxes + update Next step at each
+  phase boundary and commit ([../../resources/task-state.md](../../resources/task-state.md)).

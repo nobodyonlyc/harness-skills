@@ -26,3 +26,5 @@ review/test/verify gates.
 - **Minimal footprint** — if the fix reveals a larger design problem, surface it as a separate
   feature (WIP=1), do not expand this one.
 - **Step-gate + token budget** apply as in [workflow-feature](../workflow-feature/SKILL.md).
+- **Task-state** — keep `.harness/tasks/<id>.md` current: tick the reproduce → fix → regression →
+  verify boxes as each completes ([../../resources/task-state.md](../../resources/task-state.md)).

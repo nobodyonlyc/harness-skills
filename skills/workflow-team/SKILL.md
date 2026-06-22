@@ -41,7 +41,9 @@ Record the choice in the task-state `Collab:` field (set at `workflow-intake` Ph
 - Blocked on a teammate's US → `./harness block <your-id> --reason "..."`, notify them, do not silently take over.
 
 ## Cross-cutting
-Persona, step-gate, and token-budget apply identically to solo and team
+Persona, step-gate, token-budget, and the **task-state checkpoint**
+([../../resources/task-state.md](../../resources/task-state.md) — update `.harness/tasks/<id>.md` at
+every phase boundary, it survives handoff) apply identically to solo and team
 ([../../resources/persona-mode.md](../../resources/persona-mode.md),
 [../../resources/step-gate.md](../../resources/step-gate.md)). Branch naming and state-merge follow
 `../../resources/conventions/` (branch-convention / state-merge-convention) when present.

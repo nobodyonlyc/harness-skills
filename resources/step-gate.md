@@ -18,6 +18,11 @@ At the end of every phase, use **ask-user** (click-select, see
 Show a one-line summary of what the finished step produced (and the artifact path) so the user
 decides with context, not blind.
 
+**Before showing the gate, update the task-state file.** Tick the boxes just finished in
+`.harness/tasks/<id>.md`, update `## Current phase` + `## Next step`, and commit
+([task-state.md](task-state.md)). The gate and the task-state checkpoint are the same beat — the
+`task-state-guard` hook warns if you advance without it.
+
 ## auto mode
 In `auto`, do not stop at the gate. Instead pick "run next", append a line to the task-state
 `## Decisions`, and continue — **except** when the next step is on the always-stop list

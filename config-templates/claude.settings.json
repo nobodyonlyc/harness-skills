@@ -8,13 +8,15 @@
           { "type": "command", "command": "bash \"$CLAUDE_PROJECT_DIR/.harness/skills-src/hooks/persona-gate.sh\"" },
           { "type": "command", "command": "bash \"$CLAUDE_PROJECT_DIR/.harness/skills-src/hooks/phase-guard.sh\"" },
           { "type": "command", "command": "bash \"$CLAUDE_PROJECT_DIR/.harness/skills-src/hooks/quality-gate.sh\"" },
-          { "type": "command", "command": "bash \"$CLAUDE_PROJECT_DIR/.harness/skills-src/hooks/review-gate.sh\"" }
+          { "type": "command", "command": "bash \"$CLAUDE_PROJECT_DIR/.harness/skills-src/hooks/review-gate.sh\"" },
+          { "type": "command", "command": "bash \"$CLAUDE_PROJECT_DIR/.harness/skills-src/hooks/task-state-guard.sh\"" }
         ]
       }
     ],
     "Stop": [
       {
         "hooks": [
+          { "type": "command", "command": "bash \"$CLAUDE_PROJECT_DIR/.harness/skills-src/hooks/task-state-guard.sh\"" },
           { "type": "command", "command": "bash \"$CLAUDE_PROJECT_DIR/.harness/skills-src/hooks/context-budget-guard.sh\"" },
           { "type": "command", "command": "bash \"$CLAUDE_PROJECT_DIR/.harness/skills-src/hooks/caveman-budget.sh\"" },
           { "type": "command", "command": "bash \"$CLAUDE_PROJECT_DIR/.harness/skills-src/hooks/step-gate.sh\"" },

@@ -57,3 +57,5 @@ people/agents or `features.json` already has an `assignee`/`branch`; when ambigu
 - **Token budget** — compress inter-agent prompts (caveman), write long artifacts to files
   ([../../resources/token-budget.md](../../resources/token-budget.md)).
 - **Tracking** — record each step as a harness task; bookend with `session start/stop`.
+- **Task-state** — right after `./harness start <id>`, expand `.harness/tasks/<id>.md` to the full
+  template and update + commit it at every phase boundary ([../../resources/task-state.md](../../resources/task-state.md)).
