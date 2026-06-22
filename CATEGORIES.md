@@ -11,7 +11,7 @@ orchestrate the leaf skills through the 9-phase lifecycle.
 | `workflow-` | Multi-agent orchestrators (entry points) | strong |
 | `plan-` | Business analysis & task planning | strong |
 | `design-` | System / data / API / UI design | strong |
-| `dev-` | Implementation by component type | strong |
+| `dev-` | Implementation — by component (be/fe/cli/db/batch) and by language (js-ts/python/go/rust); a language skill composes with a component skill | strong |
 | `check-` | Review & quality gates | strong |
 | `test-` | Test execution by type | strong (fast for pure runners) |
 | `ship-` | Commit / PR / release / deploy | fast (release & deploy → strong) |
