@@ -16,7 +16,7 @@ Answer each question for the task; include the test type when the condition hold
 | **Regression** | the change touches existing behavior (edits/refactors live code, DB migrations) | `test-regression` (F18) |
 | **E2E** | a user-facing end-to-end flow exists (from `design-ux-flow`) | `test-e2e` (F18) |
 | **Performance** | a latency/throughput NFR is stated for the task | `test-performance` (F18) |
-| **Security** | auth, secrets, sensitive data, or an external attack surface is involved | `test-security` (F18) |
+| **Security** | auth, secrets, sensitive data, or an external attack surface is involved | `test-security` + a [check-security-review](../check-security-review/SKILL.md) pass |
 
 ## Emit verifications
 Map each selected type to a runnable command for the project's stack and write them at add time:

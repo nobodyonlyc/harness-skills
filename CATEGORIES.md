@@ -12,7 +12,7 @@ orchestrate the leaf skills through the 9-phase lifecycle.
 | `plan-` | Business analysis & task planning | strong |
 | `design-` | System / data / API / UI design | strong |
 | `dev-` | Implementation — by component (be/fe/cli/db/batch) and by language (js-ts/python/go/rust); a language skill composes with a component skill | strong |
-| `check-` | Review & quality gates (incl. check-review-loop: independent review + fix loop) | strong |
+| `check-` | Review & quality gates (check-review-loop: independent review + fix loop; check-security-review: deep security pass) | strong |
 | `test-` | Test execution by type | strong (fast for pure runners) |
 | `ship-` | Commit / PR / release / deploy | fast (release & deploy → strong) |
 | `core-` | Everyday single-agent tasks | fast / strong |

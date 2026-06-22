@@ -15,7 +15,7 @@ accepted. Review the **diff**, not the whole repo — scope creep dilutes attent
 ## Review dimensions (apply each; details in references/)
 - **Correctness** — logic, edge cases, error handling, off-by-one, null/empty, concurrency.
 - **Security** — input validation, injection, authz, secrets in code/logs, unsafe deserialization
-  (deep pass: `check-security-review` when auth/data/external — added in F29).
+  (deep pass: [check-security-review](../check-security-review/SKILL.md) when auth/data/external).
 - **Contract fidelity** — matches `docs/design/api.md` + schema; no silent behavior drift.
 - **Scope** — change stays inside the child-task (WIP=1); flag creep as a separate feature.
 - **Reuse/clarity** — duplication, needless complexity (deep cleanup → `check-refactor`).
