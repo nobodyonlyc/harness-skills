@@ -1,7 +1,11 @@
 ---
 name: check-review-loop
-description: Phase 6 review-fix loop — run an independent (adversarial) reviewer, track each finding as a checklist in evidence, then loop fix -> re-review until every finding is resolved. The review counterpart of check-qa.
+description: Phase 6 review-fix loop — run an independent (adversarial) reviewer, track each finding as a checklist in evidence, then loop fix -> re-review until every finding is resolved. The review counterpart of check-qa. Use when: a child-task diff is coded and needs review before verify, driving review findings to closure, the Phase 6 review gate, or any change that must not self-review.
 ---
+
+## One-Liner
+Review is a converging loop, not a one-shot pass: an independent reviewer files findings as a
+tracked checklist, and the gate stays shut until every `- [ ]` is fixed or consciously accepted.
 
 Input: a coded child-task diff. Output: a `## Review` section in `docs/design-docs/<id>/evidence.md`
 where **every finding is resolved** (`[x]`), and the code fixed accordingly.

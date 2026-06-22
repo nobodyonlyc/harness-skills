@@ -1,7 +1,11 @@
 ---
 name: check-test-strategy
-description: Phase 7 test selector — decide which test types a task requires (unit always; integration, regression, e2e, performance, security conditionally) from its characteristics, and emit them as harness verifications.
+description: Phase 7 test selector — decide which test types a task requires (unit always; integration, regression, e2e, performance, security conditionally) from its characteristics, and emit them as harness verifications. Use when: choosing test types for a child-task at plan time, freezing a task's --verifications before start, or deciding whether IT/regression/e2e/perf/security apply.
 ---
+
+## One-Liner
+Pick the test types from the task's characteristics and freeze them as immutable `--verifications`
+at plan time — unit always, the rest conditionally — because the selection is locked at `start`.
 
 Input: a child-task's plan + design context. Output: the **required test set** and the matching
 `--verifications` commands, frozen at plan time (see [plan-tasks](../plan-tasks/SKILL.md)).
@@ -26,6 +30,9 @@ Map each selected type to a runnable command for the project's stack and write t
 ```
 Because harness locks verifications at `start`, the selection **must** happen now (phase ④). Record
 the rationale ("IT included because the task calls the payments API") in the task plan.
+
+**Gate:** the selected test types are written as `--verifications` (with rationale) *before* the
+task is started — the set is immutable afterward.
 
 ## Persona
 - **Non-Technical** — do not surface the matrix; just run the selected tests and report pass/fail plainly.
