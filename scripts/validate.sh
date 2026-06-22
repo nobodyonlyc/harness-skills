@@ -9,7 +9,6 @@ cd "$ROOT"
 
 fail=0
 err() { echo "  FAIL: $*" >&2; fail=1; }
-note() { echo "  ok: $*"; }
 
 echo "== validate harness-skills =="
 
