@@ -25,8 +25,10 @@ Set at intake and stored in `.harness/context.json`:
 
 - **① BA** (`plan-ba-analysis`): Non-tech → elicit goals in business language, propose a small
   must-have set, confirm. Dev → drill acceptance criteria, edge cases, NFRs, data ownership.
-- **② System design**: Non-tech → choose conventional defaults (stack, DB) and log rationale.
-  Dev → present options + trade-offs, get approval.
+- **② System design**: Non-tech → choose conventional defaults (stack, DB) **from the default-stack
+  table in [stack-defaults.md](stack-defaults.md)** and log rationale. Dev → present options +
+  trade-offs, get approval. Both personas must **research the current latest LTS version** of each
+  chosen technology before recording it ([stack-defaults.md](stack-defaults.md) Rule 0).
 - **③ UI**: Non-tech → show a clickable mockup and ask "does this match?" Dev → confirm
   component breakdown, states, responsive rules.
 - **④ Plan tasks**: Non-tech → keep task list coarse, hide IDs. Dev → full child-task split + test strategy.

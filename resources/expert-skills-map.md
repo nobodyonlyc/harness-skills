@@ -10,6 +10,12 @@ When a harness skill runs against a concrete stack, **delegate the craft** to th
 load and follow `skills/<expert>/SKILL.md` for idioms, tooling, and patterns, while the harness
 skill keeps owning *what* to build and the gates. The expert never replaces a quality gate.
 
+The stack itself is chosen and version-pinned by `design-architecture` and recorded in the
+machine-readable Stack block; **[stack-defaults.md](stack-defaults.md) Rule 2** resolves the craft
+source: a `conventions/<lang>.md` file (curated subset: go/python/rust/typescript-node) when one
+exists, otherwise the mapped expert below is the convention authority. A stack with no `conventions/`
+file is therefore fully supported.
+
 | Harness skill | Stack / trigger | Delegate to expert |
 |---|---|---|
 | dev-python | Python | `python-pro` |
