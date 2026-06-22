@@ -62,6 +62,10 @@ re-claimed (`--force`) and pushed before resuming.
 - Blocked on a teammate's US → `./harness block <your-id> --reason "..."`, notify them, do not silently take over.
 
 ## Cross-cutting
+**Caveman is on by default** here too: apply [opt-caveman](../opt-caveman/SKILL.md) to every
+inter-agent prompt and subagent result (including PR-review fan-out), per
+[../../resources/token-budget.md](../../resources/token-budget.md).
+
 Persona, step-gate, token-budget, and the **task-state checkpoint**
 ([../../resources/task-state.md](../../resources/task-state.md) — update `.harness/tasks/<id>.md` at
 every phase boundary, it survives handoff) apply identically to solo and team

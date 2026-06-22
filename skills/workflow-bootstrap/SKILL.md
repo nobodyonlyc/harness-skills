@@ -90,7 +90,8 @@ No bootstrap progress lives only in chat — it is always recoverable from `feat
 ## Cross-cutting
 - **Step-gate** between every phase; **always-stop** before deploy and any irreversible action
   ([../../resources/autonomy-mode.md](../../resources/autonomy-mode.md)).
-- **Token budget** — compress inter-agent prompts, write artifacts to files
+- **Caveman (on by default)** — apply [opt-caveman](../opt-caveman/SKILL.md) to every inter-agent
+  prompt and subagent result across Stage A and Stage B, and write long artifacts to files
   ([../../resources/token-budget.md](../../resources/token-budget.md)).
 - **Verify before done** — no US is `passing` without review + required tests recorded in evidence.
 - **Task-state** — after `./harness start <id>` expand `.harness/tasks/<id>.md` to the full template;

@@ -10,10 +10,13 @@ Wraps [`../../vendor/caveman`](../../vendor/caveman) (MIT) and applies the polic
 [../../resources/token-budget.md](../../resources/token-budget.md).
 
 ## When to activate
-- **Inter-agent prompts** — orchestrator → subagent instructions and the data subagents return.
-  This is the default target; it is where most wasted "politeness" tokens live.
-- Trigger automatically when the `caveman-budget` hook warns that token usage is high, or proactively
-  for large fan-out subagent work.
+- **On by default in every workflow** — `workflow-intake`/`bootstrap`/`feature`/`team`/`bugfix` apply
+  this skill to every **inter-agent prompt** and **subagent result** as a standing rule (see
+  [../../resources/token-budget.md](../../resources/token-budget.md)). The `caveman-activate` hook
+  records `caveman_mode: on` at session start.
+- This is the default target; it is where most wasted "politeness" tokens live.
+- The `caveman-budget` hook only *escalates* (suggests a stronger level) when token usage runs high —
+  it is not the trigger; caveman is already on.
 
 ## When NOT to activate
 - **User-facing output** — never compress what the user reads, unless they explicitly opt in

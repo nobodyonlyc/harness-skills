@@ -67,8 +67,9 @@ people/agents or `features.json` already has an `assignee`/`branch`; when ambigu
 - **Step-gate** — after each phase, confirm before advancing per
   [../../resources/step-gate.md](../../resources/step-gate.md); in `auto`, log the decision instead.
 - **Full gates** — every executed US runs review + the required test types + verify.
-- **Token budget** — compress inter-agent prompts (caveman), write long artifacts to files
-  ([../../resources/token-budget.md](../../resources/token-budget.md)).
+- **Caveman (on by default)** — apply [opt-caveman](../opt-caveman/SKILL.md) to every inter-agent
+  prompt and subagent result, and write long artifacts to files; this is a standing rule for all
+  routes, not opt-in ([../../resources/token-budget.md](../../resources/token-budget.md)).
 - **Tracking** — record each step as a harness task; bookend with `session start/stop`.
 - **Task-state** — right after `./harness start <id>`, expand `.harness/tasks/<id>.md` to the full
   template and update + commit it at every phase boundary ([../../resources/task-state.md](../../resources/task-state.md)).

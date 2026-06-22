@@ -48,8 +48,10 @@ run [check-review-loop](../check-review-loop/SKILL.md); then `./harness verify <
 - **Regression required** — `check-test-strategy` always includes regression here.
 - **Task-state** — tick the reproduce→fix→regression→verify boxes in `.harness/tasks/<id>.md`
   ([../../resources/task-state.md](../../resources/task-state.md)).
-- Step-gate + token-budget as in [workflow-feature](../workflow-feature/SKILL.md). Persona controls
-  reporting depth ([../../resources/persona-mode.md](../../resources/persona-mode.md)).
+- Step-gate + token-budget as in [workflow-feature](../workflow-feature/SKILL.md), including
+  **caveman on by default** — apply [opt-caveman](../opt-caveman/SKILL.md) to inter-agent prompts and
+  subagent results. Persona controls reporting depth
+  ([../../resources/persona-mode.md](../../resources/persona-mode.md)).
 
 **Delegate craft depth to the experts.** For stack-trace/log analysis and hypothesis-driven
 isolation, load the vendored [`debugging-wizard`](../debugging-wizard/SKILL.md) and the six-phase

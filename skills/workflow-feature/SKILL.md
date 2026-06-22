@@ -49,7 +49,8 @@ Execute a single backlog User Story to `passing`. Reached from `workflow-intake`
 - **Persona** ([../../resources/persona-mode.md](../../resources/persona-mode.md)) — non-tech gets
   plain-language progress + auto-advance; dev gets exhaustive questions + per-phase gate.
 - **Scope discipline (WIP=1)** — stay inside this US; cross-cutting fixes become a separate feature.
-- **Token budget** — compress inter-agent prompts, artifacts to files
+- **Caveman (on by default)** — apply [opt-caveman](../opt-caveman/SKILL.md) to every inter-agent
+  prompt and subagent result (reviewer/tester fan-out especially), artifacts to files
   ([../../resources/token-budget.md](../../resources/token-budget.md)).
 - **No silent completion** — `passing` requires review + required tests in `evidence.md`.
 - **Task-state** — expand `.harness/tasks/<id>.md` after start; tick boxes + update Next step at each
