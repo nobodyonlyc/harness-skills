@@ -1,38 +1,61 @@
 ---
 name: check-code-review
-description: Phase 6 code review — review a child-task diff for correctness, security, and scope, and record real findings to the feature's evidence ## Review section (a hard gate).
+description: Phase 6 code review — inspect a child-task diff across correctness, security, contract, scope, and clarity, and record tracked findings to evidence ## Review. Use when: reviewing a diff before verify, auditing a change, checking a PR, hunting bugs/security issues in changed code.
 ---
 
-Input: the child-task diff. Output: findings written to `docs/design-docs/<id>/evidence.md` `## Review`.
+## One-Liner
+Find the real defects in *this diff* and record each as a tracked finding — presence of a review is
+not the goal, a resolved finding list is.
 
-## Review dimensions
+## Core Philosophy
+A review that produces prose but no tracked findings is theatre: nothing forces resolution. Record
+findings as checkboxes so the `review-fix-gate` can hold `verify` until each is fixed or consciously
+accepted. Review the **diff**, not the whole repo — scope creep dilutes attention.
+
+## Review dimensions (apply each; details in references/)
 - **Correctness** — logic, edge cases, error handling, off-by-one, null/empty, concurrency.
-- **Security** — input validation, injection, authz checks, secrets in code/logs, unsafe deserialization.
+- **Security** — input validation, injection, authz, secrets in code/logs, unsafe deserialization
+  (deep pass: `check-security-review` when auth/data/external — added in F29).
 - **Contract fidelity** — matches `docs/design/api.md` + schema; no silent behavior drift.
 - **Scope** — change stays inside the child-task (WIP=1); flag creep as a separate feature.
-- **Reuse/clarity** — obvious duplication or needless complexity (deep cleanup is `check-refactor`).
+- **Reuse/clarity** — duplication, needless complexity (deep cleanup → `check-refactor`).
 
-## Record (hard gate) — as a tracked checklist
-Write **real findings** to evidence `## Review` as **checkboxes** so each finding's resolution is
-durable and gate-checkable:
+## Workflow
+### Phase 1 — Context
+State the diff's intent in one sentence. **Gate:** if you cannot, ask the author before reviewing.
+### Phase 2 — Inspect
+Walk the diff against each dimension above + `references/review-checklist.md`. Note critical issues
+immediately, don't wait. **Gate:** every changed file has been read.
+### Phase 3 — Record (tracked checklist)
+Write findings to evidence `## Review` as checkboxes — resolution is durable and gate-checkable:
 ```
 - [ ] <finding> (file:line, severity)        # open
 - [x] <finding> (file:line) — fixed
 - [x] <finding> — (accepted: <reason>)
 ```
-If genuinely clean, write `No issues found` **with a one-line justification of what was checked**.
-Gates: `quality-gate` blocks `harness verify` without a `## Review` section; `review-gate` rejects
-placeholder/empty sections; **`review-fix-gate` blocks verify while any `- [ ]` stays open**.
+If genuinely clean, write `No issues found` with a one-line justification of what was checked.
+**Gate:** every finding has a file:line + severity; nothing vague.
 
-## Driving the fix loop
-This skill is the **single review pass**. To actually resolve findings, run it inside
-[check-review-loop](../check-review-loop/SKILL.md) — an **independent** reviewer + a capped
-fix → re-review loop until no `- [ ]` remains (the review counterpart of `check-qa`).
+## Examples (Bad vs Good)
+```python
+# BAD: query inside loop → N+1
+for u in users: orders = Order.objects.filter(user=u)
+# GOOD: prefetch in bulk
+users = User.objects.prefetch_related("orders").all()
+```
+More patterns: `references/common-issues.md`.
 
-## Persona
-- **Non-Technical** — summarize findings in plain language ("found a case where X could fail"); fix before proceeding.
-- **Developer** — full technical findings list.
+## Reference Guide (load on demand)
+| Topic | Reference | Load when |
+|---|---|---|
+| Review checklist | `references/review-checklist.md` | starting a review |
+| Common issues (Bad/Good) | `references/common-issues.md` | spotting recurring defects |
+| Report template | `references/report-template.md` | writing the `## Review` block |
 
-## Gate
-Confirmed findings must be addressed (or consciously accepted with rationale) before the
-`test-*` phase and `harness verify`. Use **strong** model tier — never downgrade a review to save tokens.
+## Gates & loop
+`quality-gate` needs a `## Review` section; `review-gate` rejects placeholders; **`review-fix-gate`
+blocks `verify` while any `- [ ]` is open**. This skill is one pass — run it inside
+[check-review-loop](../check-review-loop/SKILL.md) (independent reviewer + capped fix→re-review).
+Use the **strong** tier; never downgrade a review to save tokens
+([../../resources/token-budget.md](../../resources/token-budget.md)). Persona: Non-Technical gets
+plain-language findings, Developer gets the full list ([../../resources/persona-mode.md](../../resources/persona-mode.md)).
