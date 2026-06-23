@@ -40,3 +40,20 @@ If compression would risk a weaker review, test, or design result, **don't** —
 `strong` model tier ([../../resources/agent-tool-mapping.md](../../resources/agent-tool-mapping.md)).
 Quality outranks cost, always. Pair with artifact compaction (write long outputs to files, pass
 summaries) for the biggest savings.
+
+## Example (`lite`, inter-agent handoff)
+```
+Before (42 tokens):
+  Could you please go ahead and carefully implement the user login
+  endpoint, and make sure to handle all of the error cases appropriately?
+
+After (9 tokens):
+  Implement user login endpoint. Handle all error cases.
+```
+Meaning is preserved; only filler is dropped. The same content going into a review or security gate
+would stay full prose.
+
+**Gate:** the target is inter-agent / handoff / data traffic — never user-facing output, reasoning,
+or judgment-critical content (review, security, design, requirements); the chosen level matches the
+**Level selection** matrix; and the compressed text carries the same meaning as the original. If any
+of these fails, use full prose.

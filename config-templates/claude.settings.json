@@ -1,41 +1,109 @@
 {
-  "hooks": {
-    "SessionStart": [
-      {
-        "hooks": [
-          { "type": "command", "command": "bash \"$CLAUDE_PROJECT_DIR/.harness/skills-src/hooks/caveman-activate.sh\"" }
+    "permissions": {
+        "allow": [
+            "Bash(git *)",
+            "Bash(gh *)",
+            "Bash(cat *)",
+            "Bash(ls *)",
+            "Bash(find *)",
+            "Bash(grep *)",
+            "Bash(./harness *)",
+            "Bash(harness *)",
+            "AskUserQuestion"
+        ],
+        "defaultMode": "dontAsk"
+    },
+    "hooks": {
+        "PreToolUse": [
+            {
+                "matcher": "Bash",
+                "hooks": [
+                    {
+                        "type": "command",
+                        "command": "bash \"$CLAUDE_PROJECT_DIR/.harness/skills-src/hooks/git-guard.sh\""
+                    },
+                    {
+                        "type": "command",
+                        "command": "bash \"$CLAUDE_PROJECT_DIR/.harness/skills-src/hooks/persona-gate.sh\""
+                    },
+                    {
+                        "type": "command",
+                        "command": "bash \"$CLAUDE_PROJECT_DIR/.harness/skills-src/hooks/phase-guard.sh\""
+                    },
+                    {
+                        "type": "command",
+                        "command": "bash \"$CLAUDE_PROJECT_DIR/.harness/skills-src/hooks/quality-gate.sh\""
+                    },
+                    {
+                        "type": "command",
+                        "command": "bash \"$CLAUDE_PROJECT_DIR/.harness/skills-src/hooks/stack-decision-gate.sh\""
+                    },
+                    {
+                        "type": "command",
+                        "command": "bash \"$CLAUDE_PROJECT_DIR/.harness/skills-src/hooks/test-type-coverage-gate.sh\""
+                    },
+                    {
+                        "type": "command",
+                        "command": "bash \"$CLAUDE_PROJECT_DIR/.harness/skills-src/hooks/it-testcase-gate.sh\""
+                    },
+                    {
+                        "type": "command",
+                        "command": "bash \"$CLAUDE_PROJECT_DIR/.harness/skills-src/hooks/e2e-coverage-gate.sh\""
+                    },
+                    {
+                        "type": "command",
+                        "command": "bash \"$CLAUDE_PROJECT_DIR/.harness/skills-src/hooks/review-gate.sh\""
+                    },
+                    {
+                        "type": "command",
+                        "command": "bash \"$CLAUDE_PROJECT_DIR/.harness/skills-src/hooks/review-fix-gate.sh\""
+                    },
+                    {
+                        "type": "command",
+                        "command": "bash \"$CLAUDE_PROJECT_DIR/.harness/skills-src/hooks/task-state-guard.sh\""
+                    }
+                ]
+            }
+        ],
+        "Stop": [
+            {
+                "hooks": [
+                    {
+                        "type": "command",
+                        "command": "bash \"$CLAUDE_PROJECT_DIR/.harness/skills-src/hooks/task-state-guard.sh\""
+                    },
+                    {
+                        "type": "command",
+                        "command": "bash \"$CLAUDE_PROJECT_DIR/.harness/skills-src/hooks/context-budget-guard.sh\""
+                    },
+                    {
+                        "type": "command",
+                        "command": "bash \"$CLAUDE_PROJECT_DIR/.harness/skills-src/hooks/caveman-budget.sh\""
+                    },
+                    {
+                        "type": "command",
+                        "command": "bash \"$CLAUDE_PROJECT_DIR/.harness/skills-src/hooks/step-gate.sh\""
+                    },
+                    {
+                        "type": "command",
+                        "command": "bash \"$CLAUDE_PROJECT_DIR/.harness/skills-src/hooks/session-guard.sh\""
+                    },
+                    {
+                        "type": "command",
+                        "command": "bash \"$CLAUDE_PROJECT_DIR/.harness/skills-src/hooks/notify.sh\""
+                    }
+                ]
+            }
+        ],
+        "SessionStart": [
+            {
+                "hooks": [
+                    {
+                        "type": "command",
+                        "command": "bash \"$CLAUDE_PROJECT_DIR/.harness/skills-src/hooks/caveman-activate.sh\""
+                    }
+                ]
+            }
         ]
-      }
-    ],
-    "PreToolUse": [
-      {
-        "matcher": "Bash",
-        "hooks": [
-          { "type": "command", "command": "bash \"$CLAUDE_PROJECT_DIR/.harness/skills-src/hooks/git-guard.sh\"" },
-          { "type": "command", "command": "bash \"$CLAUDE_PROJECT_DIR/.harness/skills-src/hooks/persona-gate.sh\"" },
-          { "type": "command", "command": "bash \"$CLAUDE_PROJECT_DIR/.harness/skills-src/hooks/phase-guard.sh\"" },
-          { "type": "command", "command": "bash \"$CLAUDE_PROJECT_DIR/.harness/skills-src/hooks/quality-gate.sh\"" },
-          { "type": "command", "command": "bash \"$CLAUDE_PROJECT_DIR/.harness/skills-src/hooks/stack-decision-gate.sh\"" },
-          { "type": "command", "command": "bash \"$CLAUDE_PROJECT_DIR/.harness/skills-src/hooks/test-type-coverage-gate.sh\"" },
-          { "type": "command", "command": "bash \"$CLAUDE_PROJECT_DIR/.harness/skills-src/hooks/it-testcase-gate.sh\"" },
-          { "type": "command", "command": "bash \"$CLAUDE_PROJECT_DIR/.harness/skills-src/hooks/e2e-coverage-gate.sh\"" },
-          { "type": "command", "command": "bash \"$CLAUDE_PROJECT_DIR/.harness/skills-src/hooks/review-gate.sh\"" },
-          { "type": "command", "command": "bash \"$CLAUDE_PROJECT_DIR/.harness/skills-src/hooks/review-fix-gate.sh\"" },
-          { "type": "command", "command": "bash \"$CLAUDE_PROJECT_DIR/.harness/skills-src/hooks/task-state-guard.sh\"" }
-        ]
-      }
-    ],
-    "Stop": [
-      {
-        "hooks": [
-          { "type": "command", "command": "bash \"$CLAUDE_PROJECT_DIR/.harness/skills-src/hooks/task-state-guard.sh\"" },
-          { "type": "command", "command": "bash \"$CLAUDE_PROJECT_DIR/.harness/skills-src/hooks/context-budget-guard.sh\"" },
-          { "type": "command", "command": "bash \"$CLAUDE_PROJECT_DIR/.harness/skills-src/hooks/caveman-budget.sh\"" },
-          { "type": "command", "command": "bash \"$CLAUDE_PROJECT_DIR/.harness/skills-src/hooks/step-gate.sh\"" },
-          { "type": "command", "command": "bash \"$CLAUDE_PROJECT_DIR/.harness/skills-src/hooks/session-guard.sh\"" },
-          { "type": "command", "command": "bash \"$CLAUDE_PROJECT_DIR/.harness/skills-src/hooks/notify.sh\"" }
-        ]
-      }
-    ]
-  }
+    }
 }

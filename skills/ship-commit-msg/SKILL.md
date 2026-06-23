@@ -23,3 +23,7 @@ Input: the staged diff. Output: a commit message.
 - One logical change per commit. Do not commit unrelated changes together.
 - Never include secrets or large generated blobs.
 - Tier: **fast** — this is mechanical (see [../../resources/agent-tool-mapping.md](../../resources/agent-tool-mapping.md)).
+
+**Gate:** the subject is `<type>(<scope>): <summary>` in imperative mood and ≤ 72 chars, the body
+states *why* and references the feature/US id, the required trailer is present, and nothing secret or
+generated is staged. If any check fails, fix the message — do not commit.
