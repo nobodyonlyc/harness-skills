@@ -7,14 +7,18 @@ Owned by [design-architecture](../skills/design-architecture/SKILL.md) Phase 2; 
 by the `stack-decision-gate` hook.
 
 ## Rule 0 — research the current version before deciding (ALWAYS)
-**Never pick a version from memory.** Knowledge is stale; a release train moves. Before recording any
+**Never pick a version from memory.** Knowledge is stale by construction; a release train moves and
+your training cutoff lags reality, so a recalled version is wrong by default. Before recording any
 stack:
-1. Look up the **current latest LTS** (or current stable, if the technology has no LTS track) for
-   every language/runtime/framework/database you are about to choose — from the official source
-   (e.g. nodejs.org, python.org, go.dev, postgresql.org, the framework's releases page).
+1. **Call the `web-research` capability** ([agent-tool-mapping.md](agent-tool-mapping.md)) and read
+   the **official source** for the **current latest LTS** (or current stable, if the technology has
+   no LTS track) of every language/runtime/framework/database you are about to choose — e.g.
+   nodejs.org/about/releases, python.org/downloads, go.dev/dl, postgresql.org/support/versioning, or
+   the framework's releases page. This is an actual tool call, not a recollection. If the runtime has
+   no web access, **STOP and ask the user** — never fill the version in from memory.
 2. Pin to that **latest LTS / stable** unless a requirement forces otherwise (then log why).
-3. Record the **exact version + an "as of <date>" + the source** in the Stack block. This is what the
-   gate checks: a stack with no researched version does not pass.
+3. Record the **exact version + an "as of <date>" + the fetched source URL** in the Stack block. This
+   is what the gate checks: a stack with no researched version does not pass.
 
 "Latest LTS" beats "latest": prefer the newest version on a **long-term-support** line over a
 bleeding-edge release, so the project lands on something supported, not something deprecated next

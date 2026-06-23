@@ -27,8 +27,9 @@ Set at intake and stored in `.harness/context.json`:
   must-have set, confirm. Dev → drill acceptance criteria, edge cases, NFRs, data ownership.
 - **② System design**: Non-tech → choose conventional defaults (stack, DB) **from the default-stack
   table in [stack-defaults.md](stack-defaults.md)** and log rationale. Dev → present options +
-  trade-offs, get approval. Both personas must **research the current latest LTS version** of each
-  chosen technology before recording it ([stack-defaults.md](stack-defaults.md) Rule 0).
+  trade-offs, get approval. Both personas must **web-research the current latest LTS version** of each
+  chosen technology before recording it — an actual `web-research` tool call, never recalled from
+  memory ([stack-defaults.md](stack-defaults.md) Rule 0, [agent-tool-mapping.md](agent-tool-mapping.md)).
 - **③ UI**: Non-tech → show a clickable mockup and ask "does this match?" Dev → confirm
   component breakdown, states, responsive rules.
 - **④ Plan tasks**: Non-tech → keep task list coarse, hide IDs. Dev → full child-task split + test strategy.

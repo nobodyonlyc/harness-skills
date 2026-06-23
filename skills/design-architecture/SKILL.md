@@ -39,11 +39,14 @@ List 1–2 viable options; score against the requirements/NFRs.
 and logged (not asked).
 
 ### Phase 2.5 — Research the version (latest LTS — REQUIRED, do this before recording)
-For **every** language / runtime / framework / database chosen, look up the **current latest LTS**
-(or current stable, if there is no LTS line) from the official source — do **not** rely on memory
-(see [stack-defaults.md](../../resources/stack-defaults.md) Rule 0). Pin to that version. Record the
-exact version + `as of <date>` + source.
-**Gate:** every chosen technology has a researched, pinned version with a date and source.
+For **every** language / runtime / framework / database chosen, **call the `web-research` capability**
+([agent-tool-mapping.md](../../resources/agent-tool-mapping.md)) and read the official source for the
+**current latest LTS** (or current stable, if there is no LTS line). This is a real tool call — do
+**not** rely on memory; a recalled version is stale by default (see
+[stack-defaults.md](../../resources/stack-defaults.md) Rule 0). If the runtime has no web access,
+**STOP and ask the user** for the current version. Pin to that version. Record the exact version +
+`as of <date>` + the **fetched source URL**.
+**Gate:** every chosen technology has a web-researched, pinned version with a date and source URL.
 
 ### Phase 3 — Record the ADR + machine-readable Stack block
 Write the decision + rationale + rejected alternatives **and** the Stack block to
