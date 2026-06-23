@@ -35,10 +35,18 @@ wire_claude_code() {
   echo "==> Claude Code: symlinked .claude/skills -> skills-src/skills"
 }
 
-# --- Antigravity: generate .agent/workflows/harness-<name>.md adapters for each workflow-* ---
+# --- Antigravity: generate .agents/workflows/harness-<name>.md adapters for each workflow-* ---
+# Antigravity uses .agents/ (plural) as its default config dir; .agent/ is legacy. We standardize
+# on .agents/ and migrate any adapters left in a legacy .agent/workflows from earlier installs.
 wire_antigravity() {
-  local out="$PROJECT_ROOT/.agent/workflows"
+  local out="$PROJECT_ROOT/.agents/workflows"
   mkdir -p "$out"
+  # Migrate: drop adapters this installer previously generated under legacy .agent/workflows.
+  local legacy="$PROJECT_ROOT/.agent/workflows"
+  if [ -d "$legacy" ]; then
+    rm -f "$legacy"/harness-workflow-*.md
+    rmdir "$legacy" 2>/dev/null && rmdir "$PROJECT_ROOT/.agent" 2>/dev/null || true
+  fi
   local count=0
   for d in "$SKILLS_SRC"/skills/workflow-*/; do
     [ -d "$d" ] || continue
@@ -59,7 +67,7 @@ wire_antigravity() {
     } > "$out/harness-$name.md"
     count=$((count + 1))
   done
-  echo "==> Antigravity: generated $count .agent/workflows/harness-* adapters"
+  echo "==> Antigravity: generated $count .agents/workflows/harness-* adapters"
 }
 
 # --- Codex: path-based, no projection needed ---
