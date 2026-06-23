@@ -1,5 +1,20 @@
 {
-  "_comment": "Antigravity workspace hooks (.agents/hooks.json). Wired by install.sh. Every gate runs through antigravity-hook.sh, which bridges Antigravity's stdin-JSON / stdout-decision contract to the canonical Claude-style gate scripts. Each gate self-filters on the command (e.g. 'harness verify', 'git push') and no-ops otherwise, so all may share one run_command matcher. Stop/PostToolUse advisory hooks can be added once that event shape is verified against your Antigravity build.",
+  "_comment": "Antigravity workspace hooks (.agents/hooks.json). Wired by install.sh. Every hook runs through antigravity-hook.sh, which bridges Antigravity's stdin-JSON / stdout-decision contract to the canonical Claude-style scripts. PreToolUse gates self-filter on the command (e.g. 'harness verify', 'git push') and no-op otherwise, so they share one run_command matcher. The harness-session block carries the session-level hooks (caveman activation on PreInvocation; context-budget + state guards on Stop) in a SEPARATE top-level block so a schema mismatch there cannot disable the gates. If your Antigravity build rejects the Stop/PreInvocation shape, delete the harness-session block — harness-gates is independent.",
+  "harness-session": {
+    "PreInvocation": [
+      { "hooks": [
+        { "type": "command", "command": "bash .harness/skills-src/hooks/antigravity-hook.sh caveman-activate.sh" }
+      ] }
+    ],
+    "Stop": [
+      { "hooks": [
+        { "type": "command", "command": "bash .harness/skills-src/hooks/antigravity-hook.sh context-budget-guard.sh" },
+        { "type": "command", "command": "bash .harness/skills-src/hooks/antigravity-hook.sh caveman-budget.sh" },
+        { "type": "command", "command": "bash .harness/skills-src/hooks/antigravity-hook.sh task-state-guard.sh" },
+        { "type": "command", "command": "bash .harness/skills-src/hooks/antigravity-hook.sh session-guard.sh" }
+      ] }
+    ]
+  },
   "harness-gates": {
     "PreToolUse": [
       {

@@ -68,7 +68,13 @@ json_str() {
 }
 
 if [ "$CODE" -eq 0 ]; then
-  printf '{"decision":"allow"}\n'
+  # Advisory hooks (caveman, context-budget) pass (exit 0) but may print a note on stderr —
+  # carry it as a reason so Antigravity can surface it, instead of dropping it silently.
+  if [ -n "$ERR" ]; then
+    printf '{"decision":"allow","reason":%s}\n' "$(json_str "$ERR")"
+  else
+    printf '{"decision":"allow"}\n'
+  fi
 else
   printf '{"decision":"deny","reason":%s}\n' "$(json_str "$ERR")"
 fi

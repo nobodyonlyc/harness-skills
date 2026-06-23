@@ -18,6 +18,25 @@ except Exception:
     print(150000)
 " 2>/dev/null || echo 150000)
 
+# Critical threshold — past this we exit 2 so Claude Code actually SURFACES the warning (a soft
+# exit-0 Stop hook's stderr is not shown to the user). Default = 1.5x the warn threshold; override
+# with context_hard_threshold in context.json.
+HARD_THRESHOLD=$(python3 -c "
+import json
+try:
+    c=json.load(open('$CONTEXT_FILE'))
+    print(int(c.get('context_hard_threshold', int(c.get('context_warn_threshold',150000))*3//2)))
+except Exception:
+    print(225000)
+" 2>/dev/null || echo 225000)
+
+# Loop guard: if Claude Code is re-invoking us because a prior Stop hook already blocked, do NOT
+# block again (it would trap the agent). stop_hook_active arrives in the Stop payload.
+STOP_ACTIVE=$(printf '%s' "$HOOK_INPUT" | python3 -c "import json,sys
+try: print('1' if json.load(sys.stdin).get('stop_hook_active') else '0')
+except Exception: print('0')" 2>/dev/null)
+STOP_ACTIVE="${STOP_ACTIVE:-0}"
+
 # Preferred source: an explicit `./harness trace ... tokens=N` entry (most accurate).
 LAST_TOKENS=0
 SOURCE=""
@@ -45,7 +64,14 @@ LAST_TOKENS="${LAST_TOKENS:-0}"
 if [ "$LAST_TOKENS" -gt "$THRESHOLD" ] 2>/dev/null; then
   note=""
   [ "$SOURCE" = "estimate" ] && note=" (estimated from transcript size; run ./harness trace for an exact figure)"
+  # Critical: block the silent stop (exit 2) so the user actually sees it — unless we are already in
+  # a stop-hook loop, or the user opted out with CONTEXT_GUARD_SOFT=1.
+  if { [ "$LAST_TOKENS" -gt "$HARD_THRESHOLD" ] 2>/dev/null || [ "${CONTEXT_GUARD_HARD:-0}" = "1" ]; } \
+     && [ "$STOP_ACTIVE" != "1" ] && [ "${CONTEXT_GUARD_SOFT:-0}" != "1" ]; then
+    echo "CONTEXT BUDGET CRITICAL: ~${LAST_TOKENS} tokens (hard threshold ${HARD_THRESHOLD})${note}." >&2
+    echo "  Start a fresh session now: ./harness session stop && commit, then resume in a NEW session." >&2
+    exit 2
+  fi
   echo "CONTEXT BUDGET: ~${LAST_TOKENS} tokens used (threshold ${THRESHOLD})${note}. Checkpoint: ./harness session stop && commit && ./harness resume" >&2
-  [ "${CONTEXT_GUARD_HARD:-0}" = "1" ] && exit 1
 fi
 exit 0

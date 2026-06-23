@@ -44,10 +44,20 @@ depends on.
 - Harness already routes reports/logs to `.harness/reports/` and `.harness/logs/`; follow that.
 
 ## 3. Context threshold
-- `context-budget-guard` warns when the session nears the configured token threshold
-  (`./harness config set context_warn_threshold <n>`, default 150000).
+- `context-budget-guard` (Stop hook) warns when the session nears the configured token threshold
+  (`./harness config set context_warn_threshold <n>`, default 150000). Past a **critical** threshold
+  (`context_hard_threshold`, default 1.5× the warn value) it exits 2 so the host actually surfaces
+  the warning instead of swallowing a soft message. `CONTEXT_GUARD_SOFT=1` keeps it warning-only.
 - On warning: checkpoint (`./harness session stop`), commit, and resume fresh — do not push past
   the threshold and lose coherence.
+
+## 4. Checking state
+- **Is caveman on?** — `caveman-activate` records `caveman_mode: on` in `.harness/context.json`; the
+  activation hook runs on SessionStart (Claude Code) / PreInvocation (Antigravity). A hook cannot
+  verify the model actually compressed — the flag means "activated + rule stated"; real compression
+  is visible as terse inter-agent prompts in workflow runs.
+- **Quick readout** — `bash .harness/skills-src/scripts/session-health.sh` prints the caveman flag,
+  the last traced token count, and the warn/critical thresholds.
 
 ## Hard rule
 Quality outranks cost. If compressing a prompt or downgrading a model would risk a weaker review,
