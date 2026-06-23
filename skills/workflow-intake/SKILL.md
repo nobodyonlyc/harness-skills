@@ -12,7 +12,7 @@ dispatch. The router owns no work itself; it guarantees every run starts in the 
 Classify the prompt, confirm with the user, set the run's persona/autonomy/collab, then dispatch.
 Every gate uses the **ask-user** capability ([../../resources/agent-tool-mapping.md](../../resources/agent-tool-mapping.md)).
 
-## Phase -1 — Read current state (always first)
+## Phase 0 — Read current state (always first)
 ```bash
 ./harness status      # backlog, WIP, blocked
 ./harness resume      # computed next step (when a session was in progress)
@@ -22,19 +22,21 @@ greeting) — do NOT classify or dispatch. Report the state above and ask what t
 auto-start bootstrap just because the repo is empty.
 **Gate:** current backlog/WIP/blocked state is in hand, and the prompt is actionable (not empty).
 
-## Phase 0 — Classify & confirm
+## Phase 1 — Classify & confirm
 Decide which case, then **confirm with the user** (click-select) before dispatching. Re-classify on correction.
+
+**Dispatch = read and follow the linked `SKILL.md`** (do not act on the bare name).
 
 | Case | Signal | Dispatch |
 |---|---|---|
-| **1. New project** | empty/greenfield repo; "build me a …" | `workflow-bootstrap` |
-| **2. Execute a US** | a backlog US id; "do F12" | analyse US → split child-tasks `F<id>-T<n>` → `workflow-feature` / `workflow-bugfix` |
-| **3. Add feature** | existing harness repo + new capability | read source (`core-explain`) → BA delta → add US → `workflow-feature` |
+| **1. New project** | empty/greenfield repo; "build me a …" | [workflow-bootstrap](../workflow-bootstrap/SKILL.md) |
+| **2. Execute a US** | a backlog US id; "do F12" | analyse US → split child-tasks `F<id>-T<n>` → [workflow-feature](../workflow-feature/SKILL.md) / [workflow-bugfix](../workflow-bugfix/SKILL.md) |
+| **3. Add feature** | existing harness repo + new capability | read source ([core-explain](../core-explain/SKILL.md)) → BA delta → add US → [workflow-feature](../workflow-feature/SKILL.md) |
 | **4. Legacy onboard** | "add harness to a non-harness project" | survey → docs → safe `harness init` → seed backlog |
 
 **Gate:** exactly one case is chosen and the user has confirmed it (click-select).
 
-## Phase 0.5 — Persona & autonomy (persist to context.json)
+## Phase 2 — Persona & autonomy (persist to context.json)
 Per [../../resources/persona-mode.md](../../resources/persona-mode.md) and
 [../../resources/autonomy-mode.md](../../resources/autonomy-mode.md):
 ```bash
@@ -49,14 +51,14 @@ Per [../../resources/persona-mode.md](../../resources/persona-mode.md) and
 
 **Gate:** `user_role` + `auto_advance` are persisted to config and reflected in the task-state `Mode:`.
 
-## Phase 0.7 — Collaboration mode
+## Phase 3 — Collaboration mode
 Record `solo` (default, global WIP=1) or `team` (per-assignee claim + branch + PR gate, see
-`workflow-team`) in the task-state `Collab:` field. Detect `team` when the user mentions multiple
+[workflow-team](../workflow-team/SKILL.md)) in the task-state `Collab:` field. Detect `team` when the user mentions multiple
 people/agents or `features.json` already has an `assignee`/`branch`; when ambiguous, ask-user.
 
 **Gate:** the task-state `Collab:` field reads `solo` or `team`.
 
-## Phase 0.8 — Start session
+## Phase 4 — Start session
 ```bash
 ./harness session start --goal "<intent>"
 ```

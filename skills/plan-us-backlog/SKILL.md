@@ -35,4 +35,4 @@ Step-gate: approve / revise the backlog before any execution
 ([../../resources/step-gate.md](../../resources/step-gate.md)). On revise, edit and re-present.
 
 ## Handoff
-Approved backlog → `workflow-bootstrap` per-US execution (or `workflow-feature` for a single US).
+Approved backlog → [workflow-bootstrap](../workflow-bootstrap/SKILL.md) per-US execution (or [workflow-feature](../workflow-feature/SKILL.md) for a single US).

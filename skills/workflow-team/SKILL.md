@@ -21,7 +21,7 @@ chain, gates) is shared with [workflow-feature](../workflow-feature/SKILL.md).
 | Integration | checkpoint on current branch | feature branch → **PR review gate** → merge |
 | Auto-advance | allowed (esp. Non-Technical) | off — each assignee holds one US |
 
-Record the choice in the task-state `Collab:` field (set at `workflow-intake` Phase 0.7).
+Record the choice in the task-state `Collab:` field (set at `workflow-intake` Phase 3).
 
 **Gate:** the run's mode (`solo`/`team`) is recorded and everyone follows the matching WIP rule.
 

@@ -19,7 +19,7 @@ Stage B (LOOP):  for each backlog US → workflow-feature (code→review→test�
 ```
 
 ## Pre-flight — seed the setup as a parent + child-tasks
-- Ensure persona/autonomy/collab are set (else run [workflow-intake](../workflow-intake/SKILL.md) Phase 0.5–0.7).
+- Ensure persona/autonomy/collab are set (else run [workflow-intake](../workflow-intake/SKILL.md) Phase 2–3).
 - `./harness init` if `.harness/` is not yet seeded; `./harness session start --goal "bootstrap <name>"`.
 - **Seed a bootstrap parent `F00` and one child-task per Stage-A phase**, so each setup phase is
   individually planned, reviewed, and verified — and any interrupt is resumable from the active child
