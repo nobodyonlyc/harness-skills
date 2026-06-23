@@ -67,6 +67,7 @@ ADR). It is the single machine-readable source of truth for the stack; downstrea
 ```markdown
 ## Stack (machine-readable)
 <!-- Pinned to latest LTS/stable; versions researched from official sources, not recalled. -->
+- source_dir: acme-search/   # app code lives in this subfolder (slug of the system name); harness/docs stay at repo root
 - language: TypeScript
 - runtime: Node.js 22.x (LTS "Jod"; verified current as of 2026-06-22, source nodejs.org/about/releases)
 - framework: Next.js 15.x
@@ -76,6 +77,12 @@ ADR). It is the single machine-readable source of truth for the stack; downstrea
 - convention: resources/conventions/typescript-node.md
 - lts-research: Node 22 active-LTS until 2027-04; Postgres 17 current stable — checked 2026-06-22
 ```
+
+**`source_dir`** is the subfolder the app is scaffolded into — a slug of the system name (e.g.
+`acme-search/`), never the repo root. The harness keeps its own files (`.harness/`, `docs/`,
+`AGENTS.md`, `init.sh`, `run.sh`) at the root; all application code, manifests, and tests live under
+`source_dir`. `plan-skeleton` creates it; `init.sh` / `run.sh` and the test verifications operate
+inside it.
 
 Required fields the gate enforces: a `## Stack` heading, a `language:` line, at least one pinned
 **version** (a concrete number), and an **LTS/research marker** (`lts` / `as of` / `verified`). No

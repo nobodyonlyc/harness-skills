@@ -7,11 +7,17 @@ description: Phase 4 skeleton generation — create the minimal project/file str
 Stand up the smallest runnable frame — structure + build tooling that passes `init.sh` — so the dev phase has something green to build on, not a blank repo.
 
 Input: the **Stack block** in `docs/design/architecture.md` (the machine-readable source of truth —
-language, framework, db, package-manager, test-runner, and the **pinned LTS versions**). Output: a
-runnable skeleton under `source/` (or repo root).
+`source_dir`, language, framework, db, package-manager, test-runner, and the **pinned LTS versions**).
+Output: a runnable skeleton under **`./<source_dir>/`** — the subfolder named after the system, NOT
+the repo root.
 
 ## Produce
-- **Directory layout** matching the architecture (per component).
+- **Scaffold into `source_dir`** — read the `source_dir:` line from the Stack block (a slug of the
+  system name, e.g. `acme-search/`) and create everything below it. The repo root holds only harness
+  files (`.harness/`, `docs/`, `AGENTS.md`, `init.sh`, `run.sh`); **all app code / manifests / tests
+  live under `source_dir`**. If the Stack block has no `source_dir`, set one (slug of the system name)
+  and record it back to the block before scaffolding — never scaffold app code at the repo root.
+- **Directory layout** matching the architecture (per component), under `source_dir`.
 - **Build/run config** — package manifest, scripts, lint/test config, so `./init.sh` and `./run.sh`
   work from the start. **Pin every manifest to the exact versions from the Stack block** — do not
   float to "latest" at install time; the researched LTS version is the contract (`.nvmrc` /

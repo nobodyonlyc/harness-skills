@@ -50,7 +50,7 @@ sets depth/language.
 | **F00-T1** ① Business analysis | `plan-ba-analysis` → `plan-us-backlog` | `docs/requirements.md` + seeded US backlog (`harness add F01…`) |
 | **F00-T2** ② System design | `design-architecture` (+ `design-stack-research`), `design-database`, `design-api`, `design-detailed` | `docs/design/*` incl. `stack-versions.md` |
 | **F00-T3** ③ UI design | `design-ui`, `design-ux-flow` | `docs/design/ui/*` |
-| **F00-T4** ④ Plan tasks | `plan-tasks`, `plan-skeleton` | child-tasks for the US + **frozen test-strategy** + green skeleton |
+| **F00-T4** ④ Plan tasks | `plan-tasks`, `plan-skeleton` | child-tasks for the US + **frozen test-strategy** + green skeleton **under `source_dir/`** (named after the system, not the repo root) |
 
 Splitting Stage A into child-tasks gives **design and UI their own `## Review` evidence** and finer
 resume granularity — see [plan-tasks](../plan-tasks/SKILL.md) (it decomposes Stage A the same way it

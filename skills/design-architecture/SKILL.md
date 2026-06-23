@@ -71,6 +71,7 @@ pinned versions + the LTS/research marker, with no placeholders.
 
 ## Stack (machine-readable)
 <!-- Pinned to latest LTS/stable; versions researched from official sources, not recalled. -->
+- source_dir: <system-name>/   # app scaffolds into this subfolder (slug of the system name), NOT the repo root
 - language: TypeScript
 - runtime: Node.js 22.x (LTS "Jod"; verified current as of <date>, source nodejs.org/about/releases)
 - framework: Next.js 15.x
