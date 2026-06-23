@@ -17,8 +17,11 @@ stack:
    the framework's releases page. This is an actual tool call, not a recollection. If the runtime has
    no web access, **STOP and ask the user** — never fill the version in from memory.
 2. Pin to that **latest LTS / stable** unless a requirement forces otherwise (then log why).
-3. Record the **exact version + an "as of <date>" + the fetched source URL** in the Stack block. This
-   is what the gate checks: a stack with no researched version does not pass.
+3. Record each result in the dedicated artifact **`docs/design/stack-versions.md`** via
+   [design-stack-research](skills/design-stack-research/SKILL.md) — version + channel + **fetched
+   source URL** + as-of date — then copy the pins into the architecture Stack block. This is what the
+   `stack-decision-gate` checks: `harness verify` is blocked until `stack-versions.md` exists with a
+   researched version and a source URL. A text marker can be faked; a cited URL is the evidence.
 
 "Latest LTS" beats "latest": prefer the newest version on a **long-term-support** line over a
 bleeding-edge release, so the project lands on something supported, not something deprecated next

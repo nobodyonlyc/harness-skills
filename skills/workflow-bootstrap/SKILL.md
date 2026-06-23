@@ -48,7 +48,7 @@ sets depth/language.
 | Child-task | Skill | Output artifact |
 |---|---|---|
 | **F00-T1** ① Business analysis | `plan-ba-analysis` → `plan-us-backlog` | `docs/requirements.md` + seeded US backlog (`harness add F01…`) |
-| **F00-T2** ② System design | `design-architecture`, `design-database`, `design-api`, `design-detailed` | `docs/design/*` |
+| **F00-T2** ② System design | `design-architecture` (+ `design-stack-research`), `design-database`, `design-api`, `design-detailed` | `docs/design/*` incl. `stack-versions.md` |
 | **F00-T3** ③ UI design | `design-ui`, `design-ux-flow` | `docs/design/ui/*` |
 | **F00-T4** ④ Plan tasks | `plan-tasks`, `plan-skeleton` | child-tasks for the US + **frozen test-strategy** + green skeleton |
 

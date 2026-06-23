@@ -1,8 +1,10 @@
 #!/usr/bin/env bash
-# Block `harness verify <id>` if docs/design/architecture.md exists but lacks a complete
-# machine-readable Stack block: a `## Stack` section naming the language, at least one pinned
-# version, and an LTS/research marker (proof the version was researched, not recalled).
-# Enforces design-architecture + stack-defaults.md. Event: PreToolUse(Bash). 0=allow, 1=block.
+# Block `harness verify <id>` if docs/design/architecture.md exists but the stack is not properly
+# researched: (a) a complete machine-readable `## Stack` block (language + pinned version + LTS
+# marker), and (b) the dedicated artifact docs/design/stack-versions.md citing a fetched source URL
+# + version (proof the versions were web-researched via design-stack-research, not recalled).
+# Enforces design-architecture + design-stack-research + stack-defaults.md.
+# Event: PreToolUse(Bash). 0=allow, 1=block.
 COMMAND="${CLAUDE_TOOL_INPUT_COMMAND:-${TOOL_CALL_INPUT:-$*}}"
 
 echo "$COMMAND" | grep -qE '(\./harness|harness) verify' || exit 0
@@ -14,6 +16,24 @@ FEATURE_ID=$(echo "$COMMAND" | sed -E 's/.*(harness) verify[[:space:]]+(--[a-z-]
 ARCH="docs/design/architecture.md"
 # Only enforce once an architecture doc exists (i.e. a stack was meant to be decided).
 [ -f "$ARCH" ] || exit 0
+
+# Dedicated research artifact: docs/design/stack-versions.md must exist and carry a real fetched
+# source URL + a pinned version — proof the versions were web-researched (design-stack-research),
+# not recalled. A text marker in the Stack block can be faked; a cited source URL is the evidence.
+SV="docs/design/stack-versions.md"
+if [ ! -f "$SV" ]; then
+  echo "STACK GATE [${FEATURE_ID}]: missing ${SV} — run design-stack-research to web-research and record each version." >&2
+  echo "  Versions must be fetched from the official source, not recalled (stack-defaults.md Rule 0)." >&2
+  exit 1
+fi
+if ! grep -qE 'https?://' "$SV"; then
+  echo "STACK GATE [${FEATURE_ID}]: ${SV} cites no source URL — record the official URL you fetched per technology." >&2
+  exit 1
+fi
+if ! grep -qE '[0-9]+(\.[0-9x]+)?' "$SV"; then
+  echo "STACK GATE [${FEATURE_ID}]: ${SV} has no pinned version — record the researched latest LTS/stable." >&2
+  exit 1
+fi
 
 # Extract the "## Stack" section (heading line through the next "## " heading).
 STACK=$(awk '

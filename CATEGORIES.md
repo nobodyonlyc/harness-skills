@@ -23,7 +23,7 @@ orchestrate the leaf skills through the 9-phase lifecycle.
 | Phase | Skills | Notes |
 |---|---|---|
 | ① Business analysis | `plan-ba-analysis`, `plan-us-backlog` | persona-aware elicitation |
-| ② System design | `design-architecture`, `design-database`, `design-api`, `design-detailed` | trade-offs surfaced to devs |
+| ② System design | `design-architecture`, `design-stack-research`, `design-database`, `design-api`, `design-detailed` | trade-offs surfaced to devs; versions web-researched into `docs/design/stack-versions.md` |
 | ③ UI design | `design-ui`, `design-ux-flow` | generate-image, HTML/CSS fallback |
 | ④ Plan tasks | `plan-tasks`, `plan-skeleton` | **freezes the per-task test-strategy** into immutable verifications |
 | ⑤ Code | `dev-be`, `dev-fe`, `dev-cli`, `dev-db`, `dev-batch` | follow `resources/conventions/` |
