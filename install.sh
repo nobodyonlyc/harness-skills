@@ -89,9 +89,35 @@ wire_hooks() {
   fi
 }
 
+# --- Antigravity hooks: install config-templates/antigravity.hooks.json into .agents/hooks.json ---
+# Antigravity reads workspace hooks from .agents/hooks.json (the new default dir;
+# .agent/ is legacy). Our gates run through hooks/antigravity-hook.sh, which bridges
+# Antigravity's stdin-JSON / stdout-decision contract to the canonical gate scripts.
+wire_antigravity_hooks() {
+  local tmpl="$SKILLS_SRC/config-templates/antigravity.hooks.json"
+  local hooks="$PROJECT_ROOT/.agents/hooks.json"
+  [ -f "$tmpl" ] || { echo "==> Antigravity hooks: no template — skipping"; return 0; }
+  chmod +x "$SKILLS_SRC/hooks/antigravity-hook.sh" 2>/dev/null || true
+  mkdir -p "$PROJECT_ROOT/.agents"
+  if command -v jq >/dev/null 2>&1; then
+    if [ -f "$hooks" ]; then
+      # Shallow-merge top-level named blocks: our "harness-gates" key is set/replaced,
+      # any user-defined blocks are preserved.
+      jq -s '.[0] * .[1]' "$hooks" "$tmpl" > "$hooks.tmp" && mv "$hooks.tmp" "$hooks"
+      echo "==> Antigravity hooks: merged into .agents/hooks.json"
+    else
+      cp "$tmpl" "$hooks"
+      echo "==> Antigravity hooks: installed .agents/hooks.json from template"
+    fi
+  else
+    echo "==> Antigravity hooks: jq not found — merge $tmpl into $hooks manually"
+  fi
+}
+
 wire_claude_code
 wire_antigravity
 wire_codex
 wire_hooks
+wire_antigravity_hooks
 
 echo "==> done. Skills + workflows + hooks wired for Claude Code / Antigravity / Codex."

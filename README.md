@@ -33,7 +33,7 @@ Per-agent loading (no `harness mcp serve` dependency):
 | Agent | Skills / Workflows | Hooks |
 |---|---|---|
 | **Claude Code** | symlink `.claude/skills` → `.harness/skills-src/skills`, invoke `/<name>` | `.claude/settings.json` hooks point at `.harness/skills-src/hooks/*.sh` |
-| **Antigravity** | generated `.agent/workflows/harness-*.md` adapters, invoke `/harness-*` | `preToolCall` / `session_end` events mapped to the same hook scripts |
+| **Antigravity** | generated `.agents/workflows/harness-*.md` adapters, invoke `/harness-*` | `.agents/hooks.json` `PreToolUse`/`run_command` gates via `hooks/antigravity-hook.sh` (bridges Antigravity's stdin-JSON / stdout-decision contract to the same gate scripts) |
 | **Codex** | read `.harness/skills-src/skills/<name>/SKILL.md` by path | pre/post-tool hooks where supported, else gate lives in the skill via ask-user |
 
 Update everywhere with one command, reproducibly (commit-pinned):
