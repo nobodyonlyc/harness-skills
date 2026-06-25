@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# gate-audit: mechanical — reads evidence ## Test verdict lines; blocks if not green.
 # Block `harness verify <id>` if any recorded test-type verdict is not green.
 # A verdict line like "- unit: PASS …" / "- integration: FAIL …" under ## Test must read PASS for
 # every test type the agent recorded (unit/integration/regression/e2e/performance/security). You

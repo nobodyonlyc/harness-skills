@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# gate-audit: mechanical — reads evidence ## Review (length/placeholder); blocks.
 # Block verify if evidence.md ## Review section is a placeholder. Runs after quality-gate. PreToolUse(Bash).
 COMMAND="${CLAUDE_TOOL_INPUT_COMMAND:-${TOOL_CALL_INPUT:-$*}}"
 

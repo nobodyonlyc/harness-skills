@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# gate-audit: advisory — reads task-state checkboxes; nudge only, never blocks.
 # Backstop for the task-state convention (resources/task-state.md). SOFT (exit 0).
 # - PreToolUse(Bash) on `harness verify <id>`: warn if the task-state still shows implementation/tests
 #   not ticked (the agent likely forgot to update it).

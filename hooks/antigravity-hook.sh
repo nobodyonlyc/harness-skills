@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# gate-audit: advisory — adapter/bridge; the wrapped gate owns the decision.
 # Antigravity hook adapter.
 #
 # Antigravity's hook contract differs from Claude Code's: it delivers a JSON

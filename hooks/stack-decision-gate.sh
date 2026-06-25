@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# gate-audit: mechanical — reads architecture.md + stack-versions.md; blocks.
 # Block `harness verify <id>` if docs/design/architecture.md exists but the stack is not properly
 # researched: (a) a complete machine-readable `## Stack` block (language + pinned version + LTS
 # marker), and (b) the dedicated artifact docs/design/stack-versions.md citing a fetched source URL

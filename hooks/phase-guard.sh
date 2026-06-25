@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# gate-audit: mechanical — reads docs/design-docs/<id>/plan.md (presence/content); blocks.
 # Block `harness start <id>` if plan.md is missing or still a template. Event: PreToolUse(Bash).
 COMMAND="${CLAUDE_TOOL_INPUT_COMMAND:-${TOOL_CALL_INPUT:-$*}}"
 

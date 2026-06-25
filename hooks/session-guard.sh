@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# gate-audit: advisory — reads features.json in_progress count; nudge only.
 # Remind to close the session when stopping with in-progress work. Event: Stop.
 FEATURES=".harness/features.json"
 [ -f "$FEATURES" ] || exit 0

@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# gate-audit: mechanical — reads token count (trace/transcript); blocks (exit 2) past hard threshold.
 # Warn when token context approaches threshold. Event: Stop.
 # Soft by default; set CONTEXT_GUARD_HARD=1 to block.
 CONTEXT_FILE=".harness/context.json"

@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# gate-audit: advisory — desktop/terminal notification; no pass/fail decision.
 # Desktop/terminal notification when the agent finishes a turn. Event: Stop.
 MESSAGE="${CLAUDE_NOTIFICATION_MESSAGE:-Claude finished}"
 printf "\a"

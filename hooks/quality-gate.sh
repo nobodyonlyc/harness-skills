@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# gate-audit: mechanical — reads evidence.md (## Test / ## Review sections); blocks.
 # Block `harness verify <id>` if evidence.md is missing TEST or REVIEW sections. PreToolUse(Bash).
 COMMAND="${CLAUDE_TOOL_INPUT_COMMAND:-${TOOL_CALL_INPUT:-$*}}"
 

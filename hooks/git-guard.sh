@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# gate-audit: mechanical — reads $COMMAND + git branch; blocks force-push to main/master.
 # Block dangerous git operations on protected branches. Event: PreToolUse(Bash).
 COMMAND="${CLAUDE_TOOL_INPUT_COMMAND:-${TOOL_CALL_INPUT:-$*}}"
 

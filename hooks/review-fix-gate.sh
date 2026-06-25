@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# gate-audit: mechanical — counts open '- [ ]' findings in evidence ## Review; blocks.
 # HARD gate: block `harness verify <id>` while the evidence ## Review section has unresolved findings.
 # Finding markers (check-review-loop): "- [ ]" open (blocks) · "- [x]" fixed/accepted (ok).
 # Event: PreToolUse(Bash). Exit 1 = block.

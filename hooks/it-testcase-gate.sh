@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# gate-audit: mechanical — reads evidence integration test-case table; blocks.
 # Block `harness verify <id>` when integration testing was selected but evidence lacks an explicit
 # integration test-case table (concrete Steps + Expected Output + at least one executed row).
 # Enforces test-integration/SKILL.md: every IT is a documented case, never a vague "it works".

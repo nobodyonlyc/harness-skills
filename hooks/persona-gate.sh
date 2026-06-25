@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# gate-audit: mechanical — reads .harness/context.json (user_role); blocks in HARD mode.
 # Nudge to set user_role (Developer/Non-Technical) before starting a feature, so persona-driven
 # behavior is active. Event: PreToolUse(Bash). Soft by default (exit 0); HARNESS_PERSONA_HARD=1 to block.
 # See resources/persona-mode.md.

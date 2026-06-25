@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# gate-audit: judgment — tier=judgment; advance decision routed to the user (gated) or logged (auto), never a model self-grade.
 # Backstop for the step-gate contract: when stopping with an in-progress feature, remind the agent
 # to confirm with the user before advancing to the next step. Event: Stop. Soft (exit 0).
 # The real gate lives in the skills (resources/step-gate.md); this is the belt-and-suspenders nudge.

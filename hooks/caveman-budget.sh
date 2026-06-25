@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# gate-audit: advisory — reads token count; nudge only, never blocks.
 # Suggest enabling caveman compression for inter-agent prompts when token usage runs high.
 # Event: Stop. Soft (exit 0). See resources/token-budget.md + vendor/caveman.
 CONTEXT_FILE=".harness/context.json"

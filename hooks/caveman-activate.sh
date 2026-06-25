@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# gate-audit: advisory — sets caveman flag; no pass/fail decision.
 # Standing rule: caveman is ON by default for inter-agent prompts + subagent results in every
 # workflow. This hook activates it at session start — records caveman_mode:on in context.json and
 # injects the directive. Event: SessionStart. Soft (exit 0). See resources/token-budget.md.

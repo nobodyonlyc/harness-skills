@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# gate-audit: mechanical — reads evidence E2E coverage matrix; blocks.
 # Block `harness verify <id>` when E2E was selected but the UI is not fully covered: evidence must
 # carry an E2E coverage matrix that names real spec files and leaves no flow uncovered.
 # Enforces test-e2e/SKILL.md: for a UI, E2E covers the ENTIRE system — every flow gets a spec.

@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# gate-audit: advisory — resolves+injects+logs the skill chain; no pass/fail decision, never blocks.
 # Phase-5 (code) entry: deterministically resolve the skill chain from the machine-readable Stack
 # block (via the F47 resolver) and (1) INJECT a system-reminder naming the exact skills to load BY
 # NAME, (2) AUTO-LOG the chain to the task observability record (.harness/trace.md + task-state).
