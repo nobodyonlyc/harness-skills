@@ -4,9 +4,20 @@
 set -euo pipefail
 
 SKILLS_SRC="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-# PROJECT_ROOT = the superproject that embeds this submodule (fallback: two levels up).
-PROJECT_ROOT="$(git -C "$SKILLS_SRC" rev-parse --show-superproject-working-tree 2>/dev/null || true)"
-[ -n "$PROJECT_ROOT" ] || PROJECT_ROOT="$(cd "$SKILLS_SRC/../.." && pwd)"
+# PROJECT_ROOT = the superproject that embeds this submodule. Overridable via HARNESS_PROJECT_ROOT
+# (tests project into a temp dir); else the superproject, else two levels up.
+PROJECT_ROOT="${HARNESS_PROJECT_ROOT:-}"
+if [ -z "$PROJECT_ROOT" ]; then
+  PROJECT_ROOT="$(git -C "$SKILLS_SRC" rev-parse --show-superproject-working-tree 2>/dev/null || true)"
+  [ -n "$PROJECT_ROOT" ] || PROJECT_ROOT="$(cd "$SKILLS_SRC/../.." && pwd)"
+fi
+mkdir -p "$PROJECT_ROOT"
+# Physical path (-P): relative symlinks must resolve correctly even when the root is under a
+# symlinked path (e.g. macOS /tmp -> /private/tmp).
+PROJECT_ROOT="$(cd "$PROJECT_ROOT" && pwd -P)"
+# Antigravity global config dir (registry at <dir>/config/skills.json). Overridable so tests never
+# pollute the real home.
+GEMINI_CONFIG_DIR="${GEMINI_CONFIG_DIR:-$HOME/.gemini}"
 
 echo "==> harness-skills install"
 echo "    source : $SKILLS_SRC"
@@ -70,9 +81,66 @@ wire_antigravity() {
   echo "==> Antigravity: generated $count .agents/workflows/harness-* adapters"
 }
 
-# --- Codex: path-based, no projection needed ---
+# --- Codex: symlink .agents/skills -> skills-src/skills (Codex resolves symlinked skill folders) ---
+# Default location is .agents/skills (shared dir with Antigravity). Antigravity does NOT source skills
+# by walking this symlink (it uses skills.json, see wire_antigravity_skills), so the symlink serves
+# Codex only. Escape hatch: if a given Antigravity build hard-errors on the symlink's presence in
+# .agents/, set HARNESS_CODEX_SKILLS_LINK=<abs path> to relocate it (e.g. "$PROJECT_ROOT/.codex/skills").
 wire_codex() {
-  echo "==> Codex: path-based — reads .harness/skills-src/skills/<name>/SKILL.md directly (no projection)"
+  local link="${HARNESS_CODEX_SKILLS_LINK:-$PROJECT_ROOT/.agents/skills}"
+  local linkdir; linkdir="$(dirname "$link")"
+  mkdir -p "$linkdir"
+  if [ -e "$link" ] && [ ! -L "$link" ]; then
+    echo "==> Codex: $link exists and is NOT a symlink — leaving it (merge skills manually)"
+    return 0
+  fi
+  rm -f "$link"
+  ln -s "$(rel_src "$SKILLS_SRC/skills" "$linkdir")" "$link"
+  echo "==> Codex: symlinked ${link#$PROJECT_ROOT/} -> skills-src/skills"
+}
+
+# --- Antigravity: generate skills.json registry pointing at the canonical skills dir (ABS path) ---
+# Antigravity resolves symlinks to absolute paths and its file-walker may skip symlinks, so a
+# registry — not the .agents/skills symlink — is the robust source of truth for it. We write both a
+# workspace registry (.agents/skills.json, project-scoped + authoritative) and the global one
+# (<GEMINI_CONFIG_DIR>/config/skills.json, merge-safe). Schema: {"entries":[{"path":"<abs dir>"}]}.
+wire_antigravity_skills() {
+  local abs="$SKILLS_SRC/skills"
+  local ws="$PROJECT_ROOT/.agents/skills.json"
+  local gl="$GEMINI_CONFIG_DIR/config/skills.json"
+  mkdir -p "$PROJECT_ROOT/.agents" "$GEMINI_CONFIG_DIR/config"
+  # Workspace registry: project-scoped, single entry (always our canonical dir).
+  python3 - "$abs" "$ws" <<'PY'
+import json, sys
+abs_path, out = sys.argv[1], sys.argv[2]
+json.dump({"entries": [{"path": abs_path}]}, open(out, "w"), indent=2)
+open(out, "a").write("\n")
+PY
+  # Global registry: merge-safe — preserve existing entries, add ours, dedupe by path.
+  python3 - "$abs" "$gl" <<'PY'
+import json, os, sys
+abs_path, out = sys.argv[1], sys.argv[2]
+data = {}
+if os.path.exists(out):
+    try:
+        data = json.load(open(out)) or {}
+    except Exception:
+        data = {}
+entries = data.get("entries")
+if not isinstance(entries, list):
+    entries = []
+seen, merged = set(), []
+for e in entries + [{"path": abs_path}]:
+    p = e.get("path") if isinstance(e, dict) else None
+    if not p or p in seen:
+        continue
+    seen.add(p)
+    merged.append({"path": p} if list(e.keys()) == ["path"] else e)
+data["entries"] = merged
+json.dump(data, open(out, "w"), indent=2)
+open(out, "a").write("\n")
+PY
+  echo "==> Antigravity: wrote skills.json registry (workspace .agents/skills.json + ${gl})"
 }
 
 # --- Hooks: merge config-templates into per-agent settings (templates land in F12) ---
@@ -124,6 +192,7 @@ wire_antigravity_hooks() {
 
 wire_claude_code
 wire_antigravity
+wire_antigravity_skills
 wire_codex
 wire_hooks
 wire_antigravity_hooks
