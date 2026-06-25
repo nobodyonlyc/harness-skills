@@ -1,6 +1,11 @@
 ---
 name: design-architecture
 description: Phase 2 system architecture — define components, boundaries, data flow, and stack, recording the choice as an ADR with a trade-off matrix plus a machine-readable Stack block. Always research the current latest LTS/stable versions before deciding; pin to them. Use when: designing a new system, choosing a stack/framework/version, defining component boundaries, recording an architecture decision.
+metadata:
+  layer: design
+  tier: judgment
+  delegates:
+    - {trigger: "system & component design", to: architecture-designer}
 ---
 
 Input: `docs/requirements.md`. Output: `docs/design/architecture.md`.

@@ -1,6 +1,12 @@
 ---
 name: dev-js-ts
 description: Phase 5 implementation in JavaScript/TypeScript (Node) — language idioms, tooling, and project layout. Composes with a component skill (dev-be/dev-fe/dev-cli). Use when: the stack is Node/JS/TS, implementing a component skill in JavaScript/TypeScript, or setting JS/TS tooling and layout.
+metadata:
+  layer: language
+  tier: mechanical
+  delegates:
+    - {language: typescript, label: "TypeScript", to: typescript-pro}
+    - {language: javascript, label: "JavaScript (Node/browser)", to: javascript-pro}
 ---
 
 ## One-Liner

@@ -1,6 +1,11 @@
 ---
 name: design-api
 description: Phase 2 API design — define endpoints/operations, request/response contracts, status/error model, and versioning between components. Use when: defining endpoints/operations, specifying request/response contracts, designing an error/status model, or setting a versioning stance between components.
+metadata:
+  layer: design
+  tier: judgment
+  delegates:
+    - {trigger: "endpoint/contract design", to: api-designer}
 ---
 
 ## One-Liner

@@ -1,6 +1,11 @@
 ---
 name: check-code-review
 description: Phase 6 code review — inspect a child-task diff across correctness, security, contract, scope, and clarity, and record tracked findings to evidence ## Review. Use when: reviewing a diff before verify, auditing a change, checking a PR, hunting bugs/security issues in changed code.
+metadata:
+  layer: review
+  tier: judgment
+  delegates:
+    - {trigger: "review depth", to: code-reviewer}
 ---
 
 ## One-Liner

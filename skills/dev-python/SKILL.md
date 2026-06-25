@@ -1,6 +1,11 @@
 ---
 name: dev-python
 description: Phase 5 implementation in Python — language idioms, tooling, and project layout. Composes with a component skill (dev-be/dev-cli/dev-batch). Use when: the stack is Python, implementing a component skill in Python, or setting Python tooling (venv, packaging) and layout.
+metadata:
+  layer: language
+  tier: mechanical
+  delegates:
+    - {language: python, to: python-pro}
 ---
 
 ## One-Liner

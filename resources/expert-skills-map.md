@@ -16,96 +16,105 @@ source: a `conventions/<lang>.md` file (curated subset: go/python/rust/typescrip
 exists, otherwise the mapped expert below is the convention authority. A stack with no `conventions/`
 file is therefore fully supported.
 
-| Harness skill | Stack / trigger | Delegate to expert |
-|---|---|---|
-| dev-python | Python | `python-pro` |
-| dev-js-ts | TypeScript | `typescript-pro` |
-| dev-js-ts | JavaScript (Node/browser) | `javascript-pro` |
-| dev-go | Go | `golang-pro` |
-| dev-rust | Rust | `rust-engineer` |
-| dev-be / dev-cli (+ language) | Java | `java-architect` |
-| dev-be / dev-cli (+ language) | C++ | `cpp-pro` |
-| dev-be / dev-cli (+ language) | C# / .NET | `csharp-developer` |
-| dev-be / dev-cli (+ language) | Kotlin | `kotlin-specialist` |
-| dev-be / dev-fe (+ language) | Swift | `swift-expert` |
-| dev-be (+ language) | PHP | `php-pro` |
-| dev-db / dev-be | SQL (query/schema craft) | `sql-pro` |
+> **This map is GENERATED — do not hand-edit the tables below.** The single source of truth is the
+> `metadata.delegates` frontmatter of each harness skill. Change the frontmatter, then run
+> `scripts/gen-expert-map.sh --write`; `scripts/lint-expert-map.sh` fails if the two drift.
+> `dev-fe` consults the **frontend** rows, `dev-be` the **backend** rows.
 
 > Languages without a dedicated `dev-<lang>` wrapper (Java, C++, C#, Kotlin, Swift, PHP, SQL) have
 > no harness language skill — invoke the expert **directly** under the relevant component skill
 > (`dev-be`/`dev-cli`/`dev-db`/…), which still owns the gates.
 
-### Web frameworks
-Pick by the project's stack. `dev-fe` consults the **frontend** rows, `dev-be` the **backend** rows.
+<!-- GENERATED:START — source of truth is skill frontmatter (metadata.delegates); run scripts/gen-expert-map.sh --write -->
 
-| Harness skill | Framework / stack | Delegate to expert |
+### Languages
+| Harness skill | Language / stack | Delegate to |
 |---|---|---|
-| dev-fe | React | `react-expert` |
-| dev-fe | React Native (mobile) | `react-native-expert` |
-| dev-fe | Angular | `angular-architect` |
-| dev-fe | Vue (TS) | `vue-expert` |
-| dev-fe | Vue (JS) | `vue-expert-js` |
-| dev-fe | Flutter (mobile) | `flutter-expert` |
-| dev-fe | visual/design polish | `frontend-design` |
-| dev-fe / dev-be | Next.js (full-stack) | `nextjs-developer` |
-| dev-be | Django (Python) | `django-expert` |
-| dev-be | FastAPI (Python) | `fastapi-expert` |
-| dev-be | Spring Boot (Java) | `spring-boot-engineer` |
-| dev-be | Rails (Ruby) | `rails-expert` |
-| dev-be | Laravel (PHP) | `laravel-specialist` |
-| dev-be | NestJS (Node) | `nestjs-expert` |
-| dev-be | ASP.NET Core (.NET) | `dotnet-core-expert` |
+| `dev-be` | C# | `csharp-developer` |
+| `dev-be` | C++ | `cpp-pro` |
+| `dev-be` | Java | `java-architect` |
+| `dev-be` | Kotlin | `kotlin-specialist` |
+| `dev-be` | PHP | `php-pro` |
+| `dev-db` | SQL (query/schema craft) | `sql-pro` |
+| `dev-fe` | Swift | `swift-expert` |
+| `dev-go` | Go | `golang-pro` |
+| `dev-js-ts` | JavaScript (Node/browser) | `javascript-pro` |
+| `dev-js-ts` | TypeScript | `typescript-pro` |
+| `dev-python` | Python | `python-pro` |
+| `dev-rust` | Rust | `rust-engineer` |
+
+### Web frameworks
+| Harness skill | Framework / stack | Delegate to |
+|---|---|---|
+| `dev-be` | ASP.NET Core (.NET) | `dotnet-core-expert` |
+| `dev-be` | Django (Python) | `django-expert` |
+| `dev-be` | FastAPI (Python) | `fastapi-expert` |
+| `dev-be` | Laravel (PHP) | `laravel-specialist` |
+| `dev-be` | NestJS (Node) | `nestjs-expert` |
+| `dev-be` | Next.js (full-stack) | `nextjs-developer` |
+| `dev-be` | Rails (Ruby) | `rails-expert` |
+| `dev-be` | Spring Boot (Java) | `spring-boot-engineer` |
+| `dev-fe` | Angular | `angular-architect` |
+| `dev-fe` | Flutter (mobile) | `flutter-expert` |
+| `dev-fe` | React | `react-expert` |
+| `dev-fe` | React Native (mobile) | `react-native-expert` |
+| `dev-fe` | visual/design polish | `frontend-design` |
+| `dev-fe` | Vue (JS) | `vue-expert-js` |
+| `dev-fe` | Vue (TS) | `vue-expert` |
 
 ### Test / design / debug
-| Harness skill | Trigger | Delegate to expert |
+| Harness skill | Trigger | Delegate to |
 |---|---|---|
-| test-unit / check-test-strategy | test design, cases, coverage | `test-master` |
-| test-e2e | browser/UI end-to-end | `playwright-expert`, `webapp-testing` |
-| test-unit (red-green) | strict TDD cadence | `tdd-workflow` |
-| design-api | endpoint/contract design | `api-designer` |
-| design-architecture / design-detailed | system & component design | `architecture-designer` |
-| check-code-review | review depth | `code-reviewer` |
-| workflow-bugfix | root-cause / debugging | `debugging-wizard`, `debug-diagnose` |
+| `check-code-review` | review depth | `code-reviewer` |
+| `design-api` | endpoint/contract design | `api-designer` |
+| `design-architecture` | system & component design | `architecture-designer` |
+| `test-e2e` | browser/UI end-to-end | `playwright-expert` |
+| `test-e2e` | browser/UI end-to-end (app-level) | `webapp-testing` |
+| `test-unit` | strict TDD cadence (red-green) | `tdd-workflow` |
+| `test-unit` | test design | `test-master` |
+| `workflow-bugfix` | root-cause / debugging | `debugging-wizard` |
+| `workflow-bugfix` | root-cause / debugging (six-phase) | `debug-diagnose` |
 
-## Vendored experts (machine-checked by scripts/lint-expert-map.sh)
-Every name below must resolve to `skills/<name>/SKILL.md`. This fenced block is the single source
-the lint parses — keep it in sync with the table above as phases land.
+## Vendored experts (generated; machine-checked by scripts/lint-expert-map.sh)
+Every name below resolves to `skills/<name>/SKILL.md`. This fenced block is the single
+source the lint parses; it is generated from the `delegates` frontmatter above.
 
 ```text
-python-pro
-typescript-pro
-javascript-pro
-golang-pro
-rust-engineer
-java-architect
-cpp-pro
-csharp-developer
-kotlin-specialist
-swift-expert
-php-pro
-sql-pro
-react-expert
-react-native-expert
 angular-architect
-vue-expert
-vue-expert-js
-nextjs-developer
-django-expert
-fastapi-expert
-spring-boot-engineer
-rails-expert
-laravel-specialist
-nestjs-expert
-dotnet-core-expert
-flutter-expert
-frontend-design
-test-master
-playwright-expert
-tdd-workflow
-webapp-testing
 api-designer
 architecture-designer
 code-reviewer
-debugging-wizard
+cpp-pro
+csharp-developer
 debug-diagnose
+debugging-wizard
+django-expert
+dotnet-core-expert
+fastapi-expert
+flutter-expert
+frontend-design
+golang-pro
+java-architect
+javascript-pro
+kotlin-specialist
+laravel-specialist
+nestjs-expert
+nextjs-developer
+php-pro
+playwright-expert
+python-pro
+rails-expert
+react-expert
+react-native-expert
+rust-engineer
+spring-boot-engineer
+sql-pro
+swift-expert
+tdd-workflow
+test-master
+typescript-pro
+vue-expert
+vue-expert-js
+webapp-testing
 ```
+<!-- GENERATED:END -->

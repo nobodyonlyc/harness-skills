@@ -1,6 +1,11 @@
 ---
 name: dev-db
 description: Phase 5 database implementation — write migrations, schema objects, and data-access code for a child-task per the data design. Use when: writing a migration, implementing schema objects/indexes/constraints, building data-access code, or the Phase 5 database slice. Destructive migrations are always-stop.
+metadata:
+  layer: component
+  tier: mechanical
+  delegates:
+    - {language: sql, label: "SQL (query/schema craft)", to: sql-pro}
 ---
 
 ## One-Liner

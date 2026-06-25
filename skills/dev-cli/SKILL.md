@@ -1,6 +1,9 @@
 ---
 name: dev-cli
 description: Phase 5 CLI implementation — build command-line interfaces for a child-task with clear argument parsing, exit codes, and scriptable output. Use when: building a command-line interface for a child-task, defining commands/flags/exit codes, making output scriptable, or the Phase 5 CLI slice.
+metadata:
+  layer: component
+  tier: mechanical
 ---
 
 ## One-Liner

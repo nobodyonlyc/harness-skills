@@ -1,6 +1,11 @@
 ---
 name: dev-go
 description: Phase 5 implementation in Go — language idioms, tooling, and project layout. Composes with a component skill (dev-be/dev-cli/dev-batch). Use when: the stack is Go, implementing a component skill in Go, or setting Go tooling (modules, go test) and layout.
+metadata:
+  layer: language
+  tier: mechanical
+  delegates:
+    - {language: go, to: golang-pro}
 ---
 
 ## One-Liner

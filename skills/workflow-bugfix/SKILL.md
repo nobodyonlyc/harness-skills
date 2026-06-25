@@ -1,6 +1,12 @@
 ---
 name: workflow-bugfix
 description: Fix a bug on an existing harness project via structured debugging — build a reliable pass/fail signal first, then hypothesize, confirm, and fix minimally. Use when: a reported bug, a hard-to-reproduce failure, a regression, a mysterious/intermittent error, agent-assisted root-cause analysis.
+metadata:
+  layer: workflow
+  tier: entry
+  delegates:
+    - {trigger: "root-cause / debugging", to: debugging-wizard}
+    - {trigger: "root-cause / debugging (six-phase)", to: debug-diagnose}
 ---
 
 Bug report: $ARGUMENTS

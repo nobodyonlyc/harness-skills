@@ -1,6 +1,23 @@
 ---
 name: dev-be
 description: Phase 5 backend implementation — implement a child-task's server-side logic (services, persistence, endpoints) following the design docs and language conventions. Use when: implementing server-side logic for a child-task, building services/persistence/endpoints, coding against an API contract + schema, or the Phase 5 backend slice.
+metadata:
+  layer: component
+  tier: mechanical
+  delegates:
+    - {language: java, label: "Java", to: java-architect}
+    - {language: cpp, label: "C++", to: cpp-pro}
+    - {language: csharp, label: "C#", to: csharp-developer}
+    - {language: kotlin, label: "Kotlin", to: kotlin-specialist}
+    - {language: php, label: "PHP", to: php-pro}
+    - {framework: django, label: "Django (Python)", to: django-expert}
+    - {framework: fastapi, label: "FastAPI (Python)", to: fastapi-expert}
+    - {framework: spring-boot, label: "Spring Boot (Java)", to: spring-boot-engineer}
+    - {framework: rails, label: "Rails (Ruby)", to: rails-expert}
+    - {framework: laravel, label: "Laravel (PHP)", to: laravel-specialist}
+    - {framework: nestjs, label: "NestJS (Node)", to: nestjs-expert}
+    - {framework: aspnet, label: "ASP.NET Core (.NET)", to: dotnet-core-expert}
+    - {framework: nextjs, label: "Next.js (full-stack)", to: nextjs-developer}
 ---
 
 ## One-Liner

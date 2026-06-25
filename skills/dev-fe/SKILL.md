@@ -1,6 +1,18 @@
 ---
 name: dev-fe
 description: Phase 5 frontend implementation — build the UI for a child-task from the approved mockups and UX flows, following component and language conventions. Use when: building UI for a child-task, implementing screens/components from approved mockups, wiring a frontend to the API contract, or the Phase 5 frontend slice.
+metadata:
+  layer: component
+  tier: mechanical
+  delegates:
+    - {language: swift, label: "Swift", to: swift-expert}
+    - {framework: react, label: "React", to: react-expert}
+    - {framework: react-native, label: "React Native (mobile)", to: react-native-expert}
+    - {framework: angular, label: "Angular", to: angular-architect}
+    - {framework: vue-ts, label: "Vue (TS)", to: vue-expert}
+    - {framework: vue-js, label: "Vue (JS)", to: vue-expert-js}
+    - {framework: flutter, label: "Flutter (mobile)", to: flutter-expert}
+    - {framework: frontend-design, label: "visual/design polish", to: frontend-design}
 ---
 
 ## One-Liner

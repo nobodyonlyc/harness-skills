@@ -1,6 +1,12 @@
 ---
 name: test-unit
 description: Phase 7 unit testing via test-driven tracer bullets — write one behavior test through the public interface, make it pass, repeat. Always required. Use when: writing new logic, adding a unit-level behavior, the test-strategy selects unit (always), red-green-refactor.
+metadata:
+  layer: test
+  tier: mechanical
+  delegates:
+    - {trigger: "test design, cases, coverage", to: test-master}
+    - {trigger: "strict TDD cadence (red-green)", to: tdd-workflow}
 ---
 
 ## One-Liner

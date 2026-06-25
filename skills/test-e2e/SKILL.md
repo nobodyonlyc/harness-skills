@@ -1,6 +1,12 @@
 ---
 name: test-e2e
 description: Phase 7 end-to-end testing — drive complete user-facing flows through the real system to confirm it works as the user experiences it. For any UI, E2E code must cover the ENTIRE system — every user-facing flow from design-ux-flow gets a spec; no flow left uncovered. Required when a user flow exists. Use when: a task delivers a user-facing end-to-end flow, validating a journey through the real UI/API, or the test-strategy selected e2e from a design-ux-flow.
+metadata:
+  layer: test
+  tier: mechanical
+  delegates:
+    - {trigger: "browser/UI end-to-end", to: playwright-expert}
+    - {trigger: "browser/UI end-to-end (app-level)", to: webapp-testing}
 ---
 
 ## One-Liner
