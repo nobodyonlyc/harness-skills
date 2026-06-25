@@ -143,6 +143,23 @@ PY
   echo "==> Antigravity: wrote skills.json registry (workspace .agents/skills.json + ${gl})"
 }
 
+# --- Codex: implicit-invocation policy (openai.yaml) from skill tier ---
+# Codex auto-loads skills by description semantic-match; left unconstrained, a weak model can pull
+# craft/expert/component skills out-of-band, bypassing the spine + gates. This policy (generated from
+# metadata.tier) grants implicit invocation ONLY to tier:entry skills (the workflow spine); every
+# other skill is allow_implicit_invocation:false — reachable by explicit name only.
+wire_codex_implicit_policy() {
+  local gen="$SKILLS_SRC/scripts/gen-implicit-policy.sh"
+  local out="$PROJECT_ROOT/.agents/openai.yaml"
+  [ -f "$gen" ] || { echo "==> Codex policy: generator missing — skipping"; return 0; }
+  mkdir -p "$PROJECT_ROOT/.agents"
+  if bash "$gen" --write "$out" 2>/dev/null; then
+    echo "==> Codex: wrote implicit-invocation policy .agents/openai.yaml (only tier:entry implicit)"
+  else
+    echo "==> Codex policy: generator failed — skipping (.agents/openai.yaml not written)"
+  fi
+}
+
 # --- Hooks: merge config-templates into per-agent settings (templates land in F12) ---
 wire_hooks() {
   local tmpl="$SKILLS_SRC/config-templates/claude.settings.json"
@@ -194,6 +211,7 @@ wire_claude_code
 wire_antigravity
 wire_antigravity_skills
 wire_codex
+wire_codex_implicit_policy
 wire_hooks
 wire_antigravity_hooks
 

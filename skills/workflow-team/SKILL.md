@@ -1,6 +1,9 @@
 ---
 name: workflow-team
 description: Coordinate solo vs team development on a shared harness backlog — claim, branch, per-assignee WIP=1, PR integration gate, handoff, and features.json conflict resolution. Use when: multiple people/agents share one backlog, deciding solo vs team mode, claiming/branching a US, resolving a features.json claim conflict, or handing off a half-done US.
+metadata:
+  layer: workflow
+  tier: entry
 ---
 
 ## One-Liner

@@ -1,6 +1,9 @@
 ---
 name: workflow-bootstrap
 description: Create a new project from a prompt — drive a greenfield idea through the full 9-phase lifecycle (BA, design, UI, plan, code, review, test, fixbug, deploy), step-gated and persona-aware. Use when: starting a greenfield project, an empty repo and the user asked to build something, scaffolding a new app/service from a prompt, or workflow-intake routed case 1.
+metadata:
+  layer: workflow
+  tier: entry
 ---
 
 Greenfield request: $ARGUMENTS

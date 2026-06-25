@@ -1,6 +1,9 @@
 ---
 name: workflow-feature
 description: Execute one backlog User Story end-to-end on an existing harness project through the gated phase chain (BA delta, design, plan, code, review, test, verify, ship). Use when: executing a single backlog US, workflow-intake routed case 2/3, a per-US iteration inside workflow-bootstrap Stage B, or adding one scoped capability to an existing harness project.
+metadata:
+  layer: workflow
+  tier: entry
 ---
 
 Target US: $ARGUMENTS

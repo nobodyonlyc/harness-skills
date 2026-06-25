@@ -1,6 +1,9 @@
 ---
 name: workflow-intake
 description: Single entry point — classify any incoming prompt into one of 4 cases, set persona/autonomy/collab, then dispatch to the matching harness workflow. Use when: a new prompt arrives and the route is unknown, starting any harness session, deciding between bootstrap/feature/bugfix, onboarding a legacy repo, or a request is too vague to act on yet.
+metadata:
+  layer: workflow
+  tier: entry
 ---
 
 Incoming request: $ARGUMENTS
