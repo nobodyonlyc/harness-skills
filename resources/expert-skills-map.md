@@ -25,6 +25,13 @@ file is therefore fully supported.
 > no harness language skill — invoke the expert **directly** under the relevant component skill
 > (`dev-be`/`dev-cli`/`dev-db`/…), which still owns the gates.
 
+> **Deterministic resolution (no model judgment):** `scripts/experts-resolver.sh` reads this same
+> frontmatter and prints the exact chain to load — component skill → language wrapper → vendored
+> expert — as skill NAMES (the contract) plus `skills/<name>/SKILL.md` paths (the fallback). Give it
+> a stack (`--language`/`--framework`/`--component`, or `--stack <architecture.md>`); a weak model
+> reads the output instead of inferring the mapping. It is the lookup that backs a `harness experts`
+> step.
+
 <!-- GENERATED:START — source of truth is skill frontmatter (metadata.delegates); run scripts/gen-expert-map.sh --write -->
 
 ### Languages
