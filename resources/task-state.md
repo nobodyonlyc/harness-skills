@@ -7,7 +7,9 @@ record where inside a task the work is. `.harness/tasks/<id>.md` makes that dura
 The harness CLI **creates** the scaffold at `./harness start <id>` and **reads** it at
 `./harness resume`. It **never ticks the boxes**. Updating it is the **workflow's job** — if a
 workflow does not update it, it silently goes stale (every box stays `[ ]` even after the feature
-passes). The `task-state-guard` hook is the backstop that warns when that happens.
+passes). The `task-state-guard` hook is the backstop: it **blocks `harness verify <id>`** (exit 2)
+while the implementation/tests/review boxes are still unticked, and warns softly at session Stop.
+Bypass the verify block with `harness verify <id> --override-snapshot` when intentional.
 
 ## Lifecycle
 1. **Right after `./harness start <id>`** — expand the minimal scaffold into the full template below.

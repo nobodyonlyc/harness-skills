@@ -1,28 +1,32 @@
 #!/usr/bin/env bash
-# gate-audit: advisory — reads task-state checkboxes; nudge only, never blocks.
-# Backstop for the task-state convention (resources/task-state.md). SOFT (exit 0).
-# - PreToolUse(Bash) on `harness verify <id>`: warn if the task-state still shows implementation/tests
-#   not ticked (the agent likely forgot to update it).
-# - Stop: warn for any in_progress feature whose task-state has made no progress since `start`
-#   (no [x] and no [/]).
+# gate-audit: mechanical — reads task-state checkboxes. Verify path BLOCKS (exit 2); Stop path is soft.
+# Enforces the task-state convention (resources/task-state.md).
+# - PreToolUse(Bash) on `harness verify <id>`: BLOCK if the task-state still shows implementation/
+#   tests/review boxes unticked (the agent forgot to update it). Bypass: --override-snapshot.
+#   exit 2 (not 1) so the block is honored on Claude Code as well as Antigravity (via the wrapper).
+# - Stop: warn (soft, exit 0) for any in_progress feature whose task-state has made no progress
+#   since `start` (no [x] and no [/]).
 COMMAND="${CLAUDE_TOOL_INPUT_COMMAND:-${TOOL_CALL_INPUT:-$*}}"
 TASKS_DIR=".harness/tasks"
 FEATURES=".harness/features.json"
 
-warn_verify() {
+gate_verify() {
   local id="$1"
   local f="$TASKS_DIR/$id.md"
   [ -f "$f" ] || return 0
   if grep -qiE '^- \[ \].*(implementation|tests|review)' "$f"; then
-    echo "TASK-STATE GUARD [$id]: verifying, but $f still has unticked implementation/tests/review boxes." >&2
-    echo "  Update .harness/tasks/$id.md to reflect real progress (resources/task-state.md)." >&2
+    echo "TASK-STATE GATE [$id]: verify blocked — $f still has unticked implementation/tests/review boxes." >&2
+    echo "  Update .harness/tasks/$id.md to reflect real progress (resources/task-state.md), then re-run." >&2
+    echo "  To bypass: harness verify $id --override-snapshot" >&2
+    exit 2
   fi
 }
 
-# --- verify path ---
+# --- verify path: hard gate ---
 if echo "$COMMAND" | grep -qE '(\./harness|harness) verify'; then
+  echo "$COMMAND" | grep -q -- '--override-snapshot' && exit 0
   ID=$(echo "$COMMAND" | sed -E 's/.*(harness) verify[[:space:]]+(--[a-z-]+[[:space:]]+)*([A-Za-z0-9_-]+).*/\3/')
-  [ -n "$ID" ] && [ "$ID" != "$COMMAND" ] && warn_verify "$ID"
+  [ -n "$ID" ] && [ "$ID" != "$COMMAND" ] && gate_verify "$ID"
   exit 0
 fi
 
