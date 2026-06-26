@@ -99,21 +99,24 @@ wire_codex() {
   echo "==> Codex: symlinked ${link#$PROJECT_ROOT/} -> skills-src/skills"
 }
 
-# --- Antigravity: generate skills.json registry pointing at the canonical skills dir (ABS path) ---
+# --- Antigravity: generate skills.json registry pointing at the canonical skills dir ---
 # Antigravity resolves symlinks to absolute paths and its file-walker may skip symlinks, so a
 # registry — not the .agents/skills symlink — is the robust source of truth for it. We write both a
 # workspace registry (.agents/skills.json, project-scoped + authoritative) and the global one
-# (<GEMINI_CONFIG_DIR>/config/skills.json, merge-safe). Schema: {"entries":[{"path":"<abs dir>"}]}.
+# (<GEMINI_CONFIG_DIR>/config/skills.json, merge-safe). Schema: {"entries":[{"path":"<dir>"}]}.
+# The workspace registry uses a project-relative path (.harness/skills-src/skills) so it stays
+# portable across checkouts; the global registry must be absolute (it lives outside the project).
 wire_antigravity_skills() {
   local abs="$SKILLS_SRC/skills"
+  local rel; rel="$(rel_src "$abs" "$PROJECT_ROOT")"
   local ws="$PROJECT_ROOT/.agents/skills.json"
   local gl="$GEMINI_CONFIG_DIR/config/skills.json"
   mkdir -p "$PROJECT_ROOT/.agents" "$GEMINI_CONFIG_DIR/config"
-  # Workspace registry: project-scoped, single entry (always our canonical dir).
-  python3 - "$abs" "$ws" <<'PY'
+  # Workspace registry: project-scoped, single entry (relative to project root, portable).
+  python3 - "$rel" "$ws" <<'PY'
 import json, sys
-abs_path, out = sys.argv[1], sys.argv[2]
-json.dump({"entries": [{"path": abs_path}]}, open(out, "w"), indent=2)
+rel_path, out = sys.argv[1], sys.argv[2]
+json.dump({"entries": [{"path": rel_path}]}, open(out, "w"), indent=2)
 open(out, "a").write("\n")
 PY
   # Global registry: merge-safe — preserve existing entries, add ours, dedupe by path.
