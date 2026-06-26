@@ -60,6 +60,10 @@
                     },
                     {
                         "type": "command",
+                        "command": "bash \"$CLAUDE_PROJECT_DIR/.harness/skills-src/hooks/review-provenance-gate.sh\""
+                    },
+                    {
+                        "type": "command",
                         "command": "bash \"$CLAUDE_PROJECT_DIR/.harness/skills-src/hooks/task-state-guard.sh\""
                     },
                     {
@@ -105,6 +109,16 @@
                     {
                         "type": "command",
                         "command": "bash \"$CLAUDE_PROJECT_DIR/.harness/skills-src/hooks/caveman-activate.sh\""
+                    }
+                ]
+            }
+        ],
+        "SubagentStop": [
+            {
+                "hooks": [
+                    {
+                        "type": "command",
+                        "command": "bash \"$CLAUDE_PROJECT_DIR/.harness/skills-src/hooks/review-record-reminder.sh\""
                     }
                 ]
             }

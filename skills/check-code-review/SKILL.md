@@ -17,6 +17,13 @@ load the vendored [`code-reviewer`](../code-reviewer/SKILL.md) (see
 [../../resources/expert-skills-map.md](../../resources/expert-skills-map.md)); this skill keeps the
 dimensions, the tracked `## Review` checklist, and the gate.
 
+**Run as a design-derived role.** When invoked as the Phase 6 reviewer (via
+[check-review-loop](../check-review-loop/SKILL.md)), the reviewing agent carries the role resolved by
+`scripts/role-resolver.sh --phase review` (e.g. a *Go Backend Tech Lead*, loading its `expertise`
+chain) and its verdict is recorded with `harness review open/record` so the `review-provenance-gate`
+proves an independent review ran on this diff. See
+[../../resources/phase-roles.md](../../resources/phase-roles.md).
+
 ## Core Philosophy
 A review that produces prose but no tracked findings is theatre: nothing forces resolution. Record
 findings as checkboxes so the `review-fix-gate` can hold `verify` until each is fixed or consciously

@@ -13,6 +13,12 @@ Work from **trust boundaries** (where untrusted data/identity enters) and apply 
 This is the deep pass that `check-code-review`'s security dimension escalates to, and the proof for
 the `security:` test type selected by [check-test-strategy](../check-test-strategy/SKILL.md).
 
+**Run as a Security Reviewer role.** Spawn this pass as an independent subagent whose role is
+resolved by `scripts/role-resolver.sh --phase security` (archetype `security-reviewer`, expertise
+from the Stack block), and bracket it with `harness review open <id> --phase security` /
+`harness review record` so review provenance is recorded for the security phase too. See
+[../../resources/phase-roles.md](../../resources/phase-roles.md).
+
 ## Workflow
 ### Phase 1 — Map the surface
 List what the change exposes: new inputs, endpoints, queries, file/network/process calls, auth checks,

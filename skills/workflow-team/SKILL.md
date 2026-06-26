@@ -40,7 +40,9 @@ git commit -am "<id> passing" && git push         # 5. publish status to teammat
 1. **Pull first** — `git pull` before claiming, so `features.json` is current.
 2. **Claim & start** — `./harness start <id> --assignee <you> --branch`; commit + push the
    `features.json` change immediately (claim is only real once pushed).
-3. **Work** the standard phase chain on your branch (review + required tests + verify).
+3. **Work** the standard phase chain on your branch — including an independent **role-based** review
+   (`scripts/role-resolver.sh --phase review` + `harness review open/record` provenance) — plus the
+   required tests + verify.
 4. **Integrate** — open a PR; the review gate (`check-pr-review`) must pass before merge.
 5. **Push status** — when `verify` marks the US `passing`, commit `features.json` and push so
    teammates see it on `git pull`.

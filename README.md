@@ -48,6 +48,12 @@ git submodule update --remote .harness/skills-src && bash .harness/skills-src/in
 - **Persona-aware** — behavior branches on `user_role` (Non-Technical = requirement-level; Developer = exhaustive). See `resources/persona-mode.md`.
 - **Step-gated** — every phase ends with an ask-user confirmation before advancing (`resources/step-gate.md`); `auto` mode logs the decision instead (`resources/autonomy-mode.md`).
 - **Hard quality gates** — review + a requirement-driven set of tests (UT/IT/regression/e2e/perf/security) must pass before `harness verify`.
+- **Role-based, provable review** — at each judgment phase a subagent is spawned with a
+  **design-derived role** (`scripts/role-resolver.sh` reads the Stack block → e.g. a *Go Backend
+  Tech Lead*), and its verdict is recorded as **diff-hash-bound provenance** (`harness review
+  open/record`). The `review-provenance-gate` blocks `harness verify` unless that provenance is
+  CURRENT — so a review can't be faked in text and a post-review edit (STALE) re-opens the gate. See
+  [`docs/review-provenance.md`](docs/review-provenance.md) and `resources/phase-roles.md`.
 - **Token-aware** — caveman (`vendor/caveman`) compresses inter-agent prompts; long artifacts are written to files and only summaries pass between steps (`resources/token-budget.md`).
 
 ## License

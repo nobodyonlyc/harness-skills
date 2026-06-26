@@ -34,10 +34,13 @@ Execute a single backlog User Story to `passing`. Reached from `workflow-intake`
    (`check-test-strategy`) into each task's immutable `--verifications` before start.
    **Gate:** child-tasks exist with frozen `--verifications` (immutable after start).
 5. **Code** (`dev-*`) — implement per `../../resources/conventions/`.
-6. **Review** — drive [check-review-loop](../check-review-loop/SKILL.md): an **independent** reviewer
-   (`check-code-review` dimensions) records findings as a tracked checklist in evidence `## Review`,
-   then a capped fix → re-review loop runs until no `- [ ]` is open; `check-refactor` for cleanup.
-   **Gate:** no open `- [ ]` finding remains in evidence `## Review`.
+6. **Review** — drive [check-review-loop](../check-review-loop/SKILL.md): spawn an **independent**
+   reviewer whose **role is resolved from the design** (`scripts/role-resolver.sh --phase review` →
+   e.g. a Go Backend Tech Lead), bracket it with `harness review open/record`, and run the capped
+   fix → re-review loop until no `- [ ]` is open; `check-refactor` for cleanup. Escalate to
+   `check-security-review` (`--phase security`) when the change touches auth/data/external surface.
+   **Gate:** no open `- [ ]` in `## Review` **and** review provenance is CURRENT
+   (`review-provenance-gate`).
 7. **Test** — run the selected types (`test-unit` … `test-security` as the strategy requires);
    record to evidence `## Test`.
    **Gate:** every test type the frozen strategy selected is green and recorded in `## Test`.

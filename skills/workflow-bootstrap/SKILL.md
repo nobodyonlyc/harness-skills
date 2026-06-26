@@ -43,7 +43,9 @@ Stage B (LOOP):  for each backlog US → workflow-feature (code→review→test�
 
 ## Stage A — project setup (F00 child-tasks, runs ONCE)
 Run the children **one at a time** (WIP=1), each as a full mini-loop —
-`harness plan F00-Tn` → `start` → produce artifact → `check-code-review` → `harness verify F00-Tn` —
+`harness plan F00-Tn` → `start` → produce artifact → review by a design-derived role
+(`scripts/role-resolver.sh --phase design` → an Architect; `check-code-review` for code artifacts) →
+`harness verify F00-Tn` —
 with a **step-gate** ([../../resources/step-gate.md](../../resources/step-gate.md)) between them and the
 task-state file updated per child. Persona ([../../resources/persona-mode.md](../../resources/persona-mode.md))
 sets depth/language.
@@ -68,7 +70,8 @@ exist and verified), so Stage B has a working frame to build on.
 
 ## Stage B — per-US execution (repeated, via workflow-feature)
 For each backlog US, run phases ⑤–⑨ through [workflow-feature](../workflow-feature/SKILL.md):
-`harness plan <id>` → `start` → ⑤ code (`dev-*`) → ⑥ review ([check-review-loop](../check-review-loop/SKILL.md): independent review + fix loop, `check-refactor`) →
+`harness plan <id>` → `start` → ⑤ code (`dev-*`) → ⑥ review ([check-review-loop](../check-review-loop/SKILL.md):
+independent **role-based** review — `scripts/role-resolver.sh --phase review` + `harness review open/record` provenance — + fix loop, `check-refactor`) →
 ⑦ test (`check-test-strategy` → `test-*`) → ⑧ fix (`check-qa`) → `harness verify <id>` →
 ⑨ ship (`ship-commit-msg`/`ship-pr-create`; deploy = always-stop). In `solo` you may auto-chain USs
 (Non-Technical default); in `team` each assignee holds one US — see

@@ -10,6 +10,11 @@ minimally, re-run — until green or escalate. Never weaken a test to force gree
 Input: a coded + reviewed child-task with its frozen test set
 ([check-test-strategy](../check-test-strategy/SKILL.md)).
 
+**Run as a QA Engineer role.** When the QA loop is delegated to a subagent, resolve its role with
+`scripts/role-resolver.sh --phase qa` (archetype `qa-engineer`, expertise from the Stack block) so
+the agent driving the suite is a tester in the project's actual stack, not a faceless agent. See
+[../../resources/phase-roles.md](../../resources/phase-roles.md).
+
 ## The loop
 1. Run the **full selected test set** (UT + whichever of IT/regression/e2e/perf/security applies).
 2. On **green** → record results in evidence `## Test`, exit to `harness verify`.

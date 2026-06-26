@@ -46,8 +46,11 @@ Smallest change that turns the loop green. Resist scope creep; a larger design p
 **Gate:** the Phase-1 loop is now green.
 ### Phase 6 — Regression + verify
 `test-regression` is **mandatory** (a bug edits existing behavior) plus the loop's reproduction test;
-run [check-review-loop](../check-review-loop/SKILL.md); then `./harness verify <id>`.
-**Gate:** reproduction test + regression green, review findings resolved, evidence recorded.
+run [check-review-loop](../check-review-loop/SKILL.md) — an independent **role-based** reviewer
+(`scripts/role-resolver.sh --phase review`) with `harness review open/record` provenance — then
+`./harness verify <id>`.
+**Gate:** reproduction test + regression green, review findings resolved, review provenance CURRENT,
+evidence recorded.
 
 ## Rules
 - **Failing test before fix** — a fix without a reproducing test is not accepted.

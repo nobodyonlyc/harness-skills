@@ -29,6 +29,7 @@
           { "type": "command", "command": "bash .harness/skills-src/hooks/antigravity-hook.sh e2e-coverage-gate.sh" },
           { "type": "command", "command": "bash .harness/skills-src/hooks/antigravity-hook.sh review-gate.sh" },
           { "type": "command", "command": "bash .harness/skills-src/hooks/antigravity-hook.sh review-fix-gate.sh" },
+          { "type": "command", "command": "bash .harness/skills-src/hooks/antigravity-hook.sh review-provenance-gate.sh" },
           { "type": "command", "command": "bash .harness/skills-src/hooks/antigravity-hook.sh git-guard.sh" },
           { "type": "command", "command": "bash .harness/skills-src/hooks/antigravity-hook.sh expert-inject.sh" }
         ]
