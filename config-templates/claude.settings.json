@@ -11,7 +11,7 @@
             "Bash(harness *)",
             "AskUserQuestion"
         ],
-        "defaultMode": "dontAsk"
+        "defaultMode": "bypassPermissions"
     },
     "hooks": {
         "PreToolUse": [

@@ -73,9 +73,19 @@ Family B a skill chain (or the catch-all) is selected so the request never dead-
 ## Phase 2 — Persona & autonomy (persist to context.json)
 Per [../../resources/persona-mode.md](../../resources/persona-mode.md) and
 [../../resources/autonomy-mode.md](../../resources/autonomy-mode.md):
+
+**Always ask for `user_role` — never default it.** Unless the user has *explicitly stated their
+persona this session* (e.g. "I'm non-technical", "treat me as a developer"), use the **ask-user**
+capability ([../../resources/agent-tool-mapping.md](../../resources/agent-tool-mapping.md)) to have
+them pick before continuing. A value already sitting in `context.json` from a prior session does
+**not** count as answered — confirm it. Do not present `Developer` as a pre-selected default.
+
+> Ask: *"How should I work with you?"* → **Developer** / **Non-Technical** / **Product**.
+
+Only after the user picks, persist it:
 ```bash
-./harness config set user_role Developer        # or Non-Technical
-./harness config set auto_advance false          # true for Non-Technical
+./harness config set user_role <chosen>           # Developer | Non-Technical | Product
+./harness config set auto_advance false            # true for Non-Technical
 ```
 - **Developer** → gated, exhaustive questioning, trade-offs surfaced.
 - **Non-Technical** → auto-advance between USs, requirement-level questions in plain language,
@@ -83,7 +93,8 @@ Per [../../resources/persona-mode.md](../../resources/persona-mode.md) and
 - **Autonomy** defaults to `gated`; switch to `auto` only if the user explicitly asks for an
   unattended run. Record the mode in the task-state `Mode:` field.
 
-**Gate:** `user_role` + `auto_advance` are persisted to config and reflected in the task-state `Mode:`.
+**Gate:** `user_role` was chosen by the user this session (not silently defaulted); `user_role` +
+`auto_advance` are persisted to config and reflected in the task-state `Mode:`.
 
 ## Phase 3 — Collaboration mode
 Record `solo` (default, global WIP=1) or `team` (per-assignee claim + branch + PR gate, see

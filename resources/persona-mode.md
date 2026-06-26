@@ -40,7 +40,9 @@ Set at intake and stored in `.harness/context.json`:
 ## Rules
 - Persona is a **communication + question-depth** setting, **not** a quality setting. Review,
   test selection, and verify gates run the same regardless of role.
-- When `user_role` is unknown, **ask first** (a `persona-gate` hook enforces this before bootstrap).
+- When `user_role` is unknown **or carried over from a prior session and not confirmed this
+  session**, **ask first** — never silently default to `Developer` (a `persona-gate` hook nudges,
+  and `workflow-intake` Phase 2 makes the ask mandatory).
 - Non-Technical defaults to `auto_advance=true` but still honors the
   [autonomy-mode](autonomy-mode.md) always-stop list and the [step-gate](step-gate.md) on
   irreversible actions.
